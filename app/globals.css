@@ -2,21 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Finance dashboard is light-mode only — suppress dark mode body background
+   to prevent the near-black (#0a0a0a) body showing as a border around the layout */
+html,
 body {
-  color: var(--foreground);
-  background: var(--background);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #171717;
+  background: #f8fafc;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -24,4 +18,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Force table body to always fill the scroll area so Table.Summary fixed="bottom" sticks */
+.report-table .ant-table-body {
+  min-height: calc(100vh - 316px);
 }

@@ -1,0 +1,101 @@
+'use client';
+
+import { useRef } from 'react';
+import { DatePicker, DatePickerProps, Table } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import type { TableProps } from 'antd';
+import dayjs from 'dayjs';
+import SellerFilterDropdown from './SellerFilterDropdown';
+import StatusFilterDropdown from './StatusFilterDropdown';
+import SelectDropdown from '@/app/components/SelectDropdown';
+import DateRangeFilter from './DateRangeFilter';
+import ComcodeFilterDropdown from './ComcodeFilterDropdown';
+
+
+export type FilterConfig = {
+  key: string;
+  label: string;
+  options: { label: string; value: string }[];
+  placeholder?: string;
+  width?: number;
+};
+
+export type TableReportProps<T extends object> = {
+  columns: ColumnsType<T>;
+  dataSource: T[];
+  filters?: FilterConfig[];
+  dateFieldOptions?: { label: string; key: string }[];
+  onDateFieldChange?: (value: string) => void;
+  onChangePeriod?: DatePickerProps['onChange'];
+  onDateRangeChange?: (start: dayjs.Dayjs | null, end: dayjs.Dayjs | null) => void;
+  loading?: boolean;
+  summary?: (pageData: readonly T[]) => React.ReactNode;
+  scrollX?: number;
+  rowKey?: string;
+  isFinnalReport?: boolean;
+  filterSlot?: React.ReactNode;
+  expandable?: TableProps<T>['expandable'];
+};
+
+export default function TableReport<T extends object>({
+  columns,
+  dataSource,
+  dateFieldOptions = [
+    { label: 'PaidDate', key: 'PaidDate' },
+    { label: 'FulfilledDate', key: 'FulfilledDate' },
+  ],
+  onChangePeriod,
+  onDateRangeChange,
+  loading = false,
+  summary,
+  scrollX = 1200,
+  rowKey = 'key',
+  isFinnalReport = false,
+  filterSlot,
+  expandable,
+}: TableReportProps<T>) {
+  const tableWrapRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div className="flex-1 flex flex-col gap-3 overflow-y-hidden bg-white p-4 rounded-lg">
+      <div className="flex-shrink-0 flex gap-4 items-center justify-between">
+        {
+          isFinnalReport ? (
+            <DatePicker onChange={onChangePeriod} picker="month" />
+          ) : (
+            <DateRangeFilter onChange={onDateRangeChange} />
+          )
+        }
+        <div className="flex justify-end gap-4">
+          <SelectDropdown
+            title="Date"
+            menuItems={dateFieldOptions}
+          />
+          {filterSlot ?? (
+            <>
+              <ComcodeFilterDropdown />
+              <SellerFilterDropdown />
+              <StatusFilterDropdown />
+            </>
+          )}
+        </div>
+      </div>
+
+      <div ref={tableWrapRef} style={{ flex: 1, overflow: 'hidden' }}>
+        <Table<T>
+          className="report-table"
+          rowKey={rowKey}
+          columns={columns}
+          dataSource={dataSource}
+          loading={loading}
+          pagination={false}
+          size="small"
+          scroll={{ x: scrollX, y: 'calc(100vh - 316px)' }}
+          bordered
+          expandable={expandable}
+          summary={summary}
+        />
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,390 @@
+// BTM Finance System — Prisma Schema
+// PostgreSQL với partition strategy cho GLEntry
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Config / Master Data ────────────────────────────────────────────────────
+
+model Company {
+  id       String @id // Comcode: "ZeniroxPay" | "Ontario" | "Vicbea" | "MessiPay"
+  name     String
+  taxId    String?
+  currency String @default("USD") // FncCurr — đồng tiền báo cáo của pháp nhân
+  country  String // "Canada" | "VN"
+  status   String @default("Active")
+
+  @@map("companies")
+}
+
+model ChartOfAccount {
+  accountCode Int    @id
+  accountName String
+  accountType String // A=Asset L=Liability E=Equity R=Revenue X=Expense
+  balanceSide String // Dr | Cr
+  status      String  @default("Active")
+  arap        String? // "AR" | "AP" | null
+
+  @@map("chart_of_accounts")
+}
+
+model JournalTypeRule {
+  id             Int     @id @default(autoincrement())
+  dataSource     String // PayPal | Platform | PingPong | BankVN | BankCAN
+  journalType    String // "Express Checkout Payment" | "Sales of Goods" | ...
+  bankAccountNum String?
+  contraAccount  Int // FK → ChartOfAccount (TK đối ứng)
+  transAccount   Int // FK → ChartOfAccount (TK giao dịch)
+  feeAccount     Int?
+  partner        String? // "Individuals" | null
+  classify       String? // "Bulk" | "Individuals"
+
+  @@map("journal_type_rules")
+}
+
+model FiscalPeriod {
+  id        String   @id // "YYYYMM"
+  companyId String
+  year      Int
+  quarter   Int
+  month     Int
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("Pending") // Pending | Open | Closed
+  note      String?
+
+  @@index([companyId, status])
+  @@map("fiscal_periods")
+}
+
+model ExchangeRate {
+  id        Int      @id @default(autoincrement())
+  period    String // YYYYMM
+  date      DateTime
+  fncCurr   String // USD
+  inputCurr String // VND | CAD | USD
+  rateType  String // Mul | Div
+  rate      Decimal  @db.Decimal(18, 6)
+
+  // Mul: AccountedAmt = InputAmt × rate  (CAD → USD)
+  // Div: AccountedAmt = InputAmt ÷ rate  (VND → USD)
+
+  @@index([period, inputCurr])
+  @@map("exchange_rates")
+}
+
+model Partner {
+  id           Int     @id @default(autoincrement())
+  type         String // "Seller" | "Supplier"
+  partnerTaxId String  @unique // Email (Seller) hoặc TaxID/DKKD (Supplier)
+  partnerCode  String  @unique
+  partnerName  String
+  bankAccount  String? // ClientID PingPong với Seller
+  bankType     String? // "PingPong" | null
+  relatedParty Boolean @default(false)
+  comcode      String? // Comcode pháp nhân quản lý partner
+
+  @@map("partners")
+}
+
+// ─── Transaction Data ────────────────────────────────────────────────────────
+
+model Order {
+  orderId            String      @id // "PGIJZ-011225-K1NJD"
+  items              OrderItem[]
+  storeName          String
+  segment            String? // Comcode phụ trách: ZeniroxPay | Ontario | ...
+  itemStatus         String // FULFILLED | UNFULFILLED
+  paidAt             DateTime?
+  fulfilledAt        DateTime?
+  transactionId      String? // Link → PaypalTransaction
+  sellerEmail        String? // Link → Partner.partnerTaxId
+  buyerCountry       String?
+  buyerProvince      String?
+  domain             String?
+  carrier            String? // "SDH" — Bettamax internal fulfillment
+  trackingNumber     String?
+  paymentGatewayName String? // "PAYPAL" | "STRIPE"
+
+  @@index([segment, paidAt])
+  @@index([sellerEmail])
+  @@map("orders")
+}
+
+model OrderItem {
+  id             Int     @id @default(autoincrement())
+  orderId        String
+  itemCode       String
+  sku            String?
+  productSku     String?
+  quantity       Int
+  unitPrice      Decimal  @db.Decimal(18, 4)
+  shippingFee    Decimal  @default(0) @db.Decimal(18, 4)
+  totalPrice     Decimal  @db.Decimal(18, 4)
+  supplierCost   Decimal? @db.Decimal(18, 4)
+  sellerCost     Decimal? @db.Decimal(18, 4)
+  additionalCost Decimal? @db.Decimal(18, 4)
+  taxFee         Decimal? @db.Decimal(18, 4)
+  fulfillCost    Decimal? @db.Decimal(18, 4)
+  profit         Decimal? @db.Decimal(18, 4)
+  order          Order    @relation(fields: [orderId], references: [orderId])
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+model PaypalTransaction {
+  id            Int      @id @default(autoincrement())
+  comcode       String
+  date          DateTime
+  type          String
+  // Express Checkout Payment | Reserve Hold | Chargeback Fee | Dispute Fee |
+  // Payment Refund | Payment Reversal | Reserve Release | Direct Credit Card Payment |
+  // Payment Review Hold | Payment Review Release | General Currency Conversion |
+  // User Initiated Withdrawal | Mass Pay Payment | General Authorization
+  status        String
+  // Completed | Reversed | Pending | Denied — CHỈ post GL khi Completed
+  currency      String // USD | CAD
+  gross         Decimal  @db.Decimal(18, 4)
+  fee           Decimal  @db.Decimal(18, 4)
+  net           Decimal  @db.Decimal(18, 4)
+  transactionId String   @unique
+  referenceId   String? // Link sang giao dịch gốc (Chargeback/Reversal)
+  invoiceNumber String? // = Order.orderId
+  balanceImpact String // Credit | Debit | No Impact
+  period        String? // YYYYMM — computed từ date
+  glPosted      Boolean  @default(false)
+  glPostDate    DateTime?
+
+  @@index([comcode, period])
+  @@index([invoiceNumber])
+  @@index([referenceId])
+  @@index([glPosted])
+  @@map("paypal_transactions")
+}
+
+model PlatformStaging {
+  id          Int      @id @default(autoincrement())
+  comcode     String
+  period      String // YYYYMM
+  fileName    String
+  uploadedAt  DateTime @default(now())
+  uploadedBy  String
+  rowCount    Int      @default(0)
+  status      String   @default("Pending") // Pending | Processed | Error
+  errorMsg    String?
+
+  @@index([comcode, period])
+  @@map("platform_staging")
+}
+
+model PingPongTransaction {
+  id            Int      @id @default(autoincrement())
+  comcode       String
+  date          DateTime
+  type          String
+  currency      String
+  amount        Decimal  @db.Decimal(18, 4)
+  fee           Decimal  @default(0) @db.Decimal(18, 4)
+  net           Decimal  @db.Decimal(18, 4)
+  transactionId String   @unique
+  referenceId   String?
+  sellerEmail   String? // Link → Partner.partnerTaxId
+  period        String? // YYYYMM
+  glPosted      Boolean  @default(false)
+  glPostDate    DateTime?
+
+  @@index([comcode, period])
+  @@index([sellerEmail])
+  @@map("pingpong_transactions")
+}
+
+model BankTransaction {
+  id            Int      @id @default(autoincrement())
+  comcode       String
+  bankType      String // BankVN | BankCAN
+  date          DateTime
+  description   String?
+  debit         Decimal  @default(0) @db.Decimal(18, 4)
+  credit        Decimal  @default(0) @db.Decimal(18, 4)
+  balance       Decimal? @db.Decimal(18, 4)
+  currency      String
+  referenceId   String?
+  period        String? // YYYYMM
+  glPosted      Boolean  @default(false)
+  glPostDate    DateTime?
+
+  @@index([comcode, period])
+  @@map("bank_transactions")
+}
+
+model DisputeCase {
+  id               String   @id // "PP-R-HUR-603817462"
+  comcode          String
+  caseType         String
+  // Dispute | Chargeback | Claim | Unauthorized Claim | Bank Return
+  caseStatus       String // raw PayPal status
+  normalizedStatus String // "Open" | "Closed"
+  filingDate       DateTime?
+  closureDate      DateTime?
+  disputedAmount   Decimal?  @db.Decimal(18, 4)
+  disputedCurrency String?
+  moneyMovement    String? // "Debit" | "No Impact"
+  settlementType   String? // "Adjustment" | "Refund"
+  finalCaseOutcome String? // "Refund" | "Win" | "Loss" | null
+  invoiceId        String? // Link → Order.orderId
+  transactionId    String? // Link → PaypalTransaction
+  cardType         String?
+  grossAmount      Decimal?  @db.Decimal(18, 4)
+  feeAmount        Decimal?  @db.Decimal(18, 4)
+  sellerProtection String? // "Eligible" | "Ineligible"
+
+  @@index([comcode, normalizedStatus])
+  @@index([invoiceId])
+  @@map("dispute_cases")
+}
+
+// ─── General Ledger ──────────────────────────────────────────────────────────
+// NOTE: Partition BY period trong raw SQL migration (Prisma không hỗ trợ native partition)
+// CREATE TABLE gl_entries_YYYYMM PARTITION OF gl_entries FOR VALUES FROM ('YYYYMM') TO ('YYYYMM+1')
+// Volume: ~750,000 entries/tháng → PARTITION bắt buộc
+
+model GlEntry {
+  id             String   @id // "YYYYMM" + 8 digits = "20260100000001"
+  comcode        String
+  dataSource     String
+  // PayPal | Platform | PingPong | BankVN | BankCAN | Manual
+  journalType    String
+  docNum         String // Group các dòng cùng bút toán (Dr=Cr per docNum)
+  referenceTxnId String?
+  bankAccountNum String?
+  accountCode    Int
+  partner        String?
+  period         String // YYYYMM — partition key
+  refNum         String?
+  transDate      DateTime
+  docDate        DateTime
+  inputCurr      String
+  fncCurr        String   @default("USD")
+  inputDr        Decimal  @default(0) @db.Decimal(18, 4)
+  inputCr        Decimal  @default(0) @db.Decimal(18, 4)
+  xRate          Decimal  @default(1) @db.Decimal(18, 6)
+  rateType       String   @default("Mul") // Mul | Div
+  accountedDr    Decimal  @default(0) @db.Decimal(18, 4)
+  accountedCr    Decimal  @default(0) @db.Decimal(18, 4)
+  description    String?
+  balanceImpact  String?
+  isReversal     Boolean  @default(false)
+  reversedId     String? // FK → GlEntry.id (bút toán bị đảo)
+  partnerTaxId   String?
+  segment        String?
+  createdAt      DateTime @default(now())
+  createdBy      String
+
+  @@index([comcode, period])
+  @@index([accountCode, period])
+  @@index([docNum])
+  @@index([referenceTxnId])
+  @@map("gl_entries")
+}
+
+// ─── Pre-aggregated Reports ──────────────────────────────────────────────────
+
+// KHÔNG query orders trực tiếp cho Profit Report
+// Refresh: sau mỗi upload mới + cron mỗi 1 giờ
+model ProfitSummary {
+  id             Int      @id @default(autoincrement())
+  comcode        String
+  period         String // YYYYMM
+  sellerEmail    String
+  storeName      String
+  buyerCountry   String?
+  paymentGateway String?
+  orderCount     Int
+  gmv            Decimal  @db.Decimal(18, 4)
+  shippingCost   Decimal  @db.Decimal(18, 4)
+  additionalCost Decimal  @db.Decimal(18, 4)
+  taxFee         Decimal  @db.Decimal(18, 4)
+  supplierCost   Decimal  @db.Decimal(18, 4)
+  sellerCost     Decimal  @db.Decimal(18, 4)
+  fulfillCost    Decimal  @db.Decimal(18, 4)
+  refreshedAt    DateTime @default(now())
+
+  @@index([comcode, period])
+  @@unique([comcode, period, sellerEmail, buyerCountry, paymentGateway])
+  @@map("profit_summaries")
+}
+
+// ─── Invoice ─────────────────────────────────────────────────────────────────
+
+model Invoice {
+  id           Int      @id @default(autoincrement())
+  invoiceNo    String   @unique // "Invoice-Seller-{Period}-{PartnerID}xxx"
+  comcode      String
+  type         String
+  // AP-Seller | AP-Supplier | AR-Output | AR-DisputeRecovery
+  status       String   @default("New")
+  // New | AM Confirmed | Director Confirmed | FC Confirmed | Paid
+  partnerId    Int // FK → Partner
+  period       String // YYYYMM
+  incurDate    DateTime
+  dueDate      DateTime // = incurDate + 30 days (Net30)
+  paidDate     DateTime?
+  amount       Decimal  @db.Decimal(18, 4)
+  currency     String   @default("USD")
+  description  String?
+  glPosted     Boolean  @default(false)
+  createdBy    String
+  amConfirmedBy  String?
+  amConfirmedAt  DateTime?
+  dirConfirmedBy String?
+  dirConfirmedAt DateTime?
+  fcConfirmedBy  String?
+  fcConfirmedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([comcode, period])
+  @@index([partnerId, status])
+  @@map("invoices")
+}
+
+// ─── Cash Flow Plan ──────────────────────────────────────────────────────────
+
+model CashFlowPlan {
+  id          Int      @id @default(autoincrement())
+  comcode     String
+  period      String // YYYYMM
+  category    String // Operating | Investing | Financing
+  lineItem    String
+  plannedAmt  Decimal  @db.Decimal(18, 4)
+  actualAmt   Decimal? @db.Decimal(18, 4)
+  note        String?
+
+  @@index([comcode, period])
+  @@map("cash_flow_plans")
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+
+model User {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  name             String?
+  role             String   @default("Viewer")
+  // Admin | Accountant | AM | Director | FC | Viewer
+  allowedComcodes  String[] // Array of Comcode — PostgreSQL native array
+  // Mọi query phải WHERE comcode IN (user.allowedComcodes)
+  firebaseUid      String?  @unique
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("users")
+}
