@@ -1,19 +1,14 @@
-import { Card } from 'antd'
+'use client';
 
-export default function DataEntryPage() {
-  const titleMap: Record<string, string> = {
-    'overall': 'Data Preparation Overview',
-    'bettamax': 'BettaMax Order Data',
-    'pingpong': 'PingPong Statement',
-    'bank': 'Bank Transactions',
-    'paypal': 'PayPal Transactions',
-    'gl-entry': 'GL Entry',
-    'actual-costs': 'Actual Costs (Seller & Supplier)'
-  }
+import { Card } from 'antd';
+import { useT } from '@/lib/i18n/LocaleContext';
+
+export default function DataEntryOverallPage() {
+  const t = useT();
   return (
     <div>
-      <h1 style={{ marginBottom: '24px' }}>${titleMap['overall']}</h1>
-      <Card><p>Data entry form (placeholder)</p></Card>
+      <h1 style={{ marginBottom: '24px' }}>{t('dataEntry.overall')}</h1>
+      <Card><p>{t('common.dataEntryPlaceholder')}</p></Card>
     </div>
-  )
+  );
 }

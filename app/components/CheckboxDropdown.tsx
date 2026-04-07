@@ -1,7 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 import { Button, Checkbox, Divider, Dropdown, type DropdownProps } from 'antd';
 import { cn } from '@/lib/utils';
 import { DownOutlined } from '@ant-design/icons';
+import { useT } from '@/lib/i18n/LocaleContext';
 
 type Option<T> = {
   label: string;
@@ -18,7 +21,7 @@ type CheckboxDropdownProps<T extends string | number> = {
 } & Omit<DropdownProps, 'open' | 'onOpenChange' | 'popupRender' | 'children'>;
 
 export default function CheckboxDropdown<T extends string | number>({
-  label = 'Select options',
+  label,
   dropdownTitle,
   options,
   selected = [],
@@ -26,6 +29,7 @@ export default function CheckboxDropdown<T extends string | number>({
   className,
   ...dropdownProps
 }: CheckboxDropdownProps<T>) {
+  const t = useT();
   const [open, setOpen] = useState(false);
 
   const handleChange = (option: T, checked: boolean) => {
@@ -33,7 +37,6 @@ export default function CheckboxDropdown<T extends string | number>({
   };
 
   const handleClear = () => onChange([]);
-
   const isEmpty = selected.length === 0;
 
   return (
@@ -70,11 +73,9 @@ export default function CheckboxDropdown<T extends string | number>({
                 ? 'text-colorTextDisabled cursor-not-allowed'
                 : 'cursor-pointer hover:bg-[#0000000A]'
             }`}
-            onClick={() => {
-              if (!isEmpty) handleClear();
-            }}
+            onClick={() => { if (!isEmpty) handleClear(); }}
           >
-            Clear selection
+            {t('common.clearSelection')}
           </div>
         </div>
       )}
@@ -95,7 +96,7 @@ export default function CheckboxDropdown<T extends string | number>({
         }
         iconPlacement="end"
       >
-        <span className="text-fontSizeBase">{label}</span>
+        <span className="text-fontSizeBase">{label ?? t('common.selectOptions')}</span>
       </Button>
     </Dropdown>
   );

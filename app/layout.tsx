@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { ConfigProvider } from 'antd'
-import viVN from 'antd/locale/vi_VN'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { Providers } from '@/app/components/Providers'
@@ -33,25 +31,12 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
 
   return (
-    <html lang="vi">
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AntdRegistry>
-          <ConfigProvider
-            locale={viVN}
-            theme={{
-              cssVar: { key: 'btm' },
-              hashed: false,
-              token: {
-                colorPrimary: '#1d4ed8',
-                borderRadius: 6,
-                fontFamily: 'var(--font-geist-sans), sans-serif',
-              },
-            }}
-          >
-            <Providers session={session}>
-              {children}
-            </Providers>
-          </ConfigProvider>
+          <Providers session={session}>
+            {children}
+          </Providers>
         </AntdRegistry>
       </body>
     </html>

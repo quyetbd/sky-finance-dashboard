@@ -1,22 +1,20 @@
+'use client';
+
 import CheckboxDropdown from '@/app/components/CheckboxDropdown';
 import React, { useState } from 'react';
 import { COMCODE_OPTIONS } from '../profit/data';
+import { useT } from '@/lib/i18n/LocaleContext';
 
 const ComcodeFilterDropdown = () => {
+  const t = useT();
   const [comcode, setComcode] = useState<string[]>([]);
-
-  const handleChangeComcode = (value: string[] | undefined) => {
-    setComcode(value ? value : []);
-  };
 
   return (
     <CheckboxDropdown
-      label="Comcode"
+      label={t('table.comcode')}
       options={COMCODE_OPTIONS}
       selected={comcode}
-      onChange={(value) => {
-        handleChangeComcode(value.length ? value : undefined);
-      }}
+      onChange={(value) => setComcode(value.length ? value : [])}
     />
   );
 };

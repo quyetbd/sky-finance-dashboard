@@ -1,0 +1,173 @@
+{
+  "common": {
+    "export": "Export",
+    "total": "TOTAL",
+    "clearSelection": "Clear selection",
+    "selectOptions": "Select options",
+    "comingSoon": "Coming soon...",
+    "financialStatementPlaceholder": "Financial statement (placeholder)",
+    "configPlaceholder": "Configuration page (placeholder)",
+    "dataEntryPlaceholder": "Data entry form (placeholder)",
+    "reportPlaceholder": "Report content (placeholder)"
+  },
+  "nav": {
+    "reports": "Management Reports",
+    "profitReport": "Profit Report",
+    "finalReport": "Final Report",
+    "disputeManagement": "Dispute Management",
+    "byMarketReport": "By Market Report",
+    "glFinancial": "GL & Financial Reports",
+    "dataPreparation": "Data Preparation",
+    "generalLedger": "General Ledger",
+    "glEntry": "GL Entry",
+    "actualCosts": "Actual Costs (Seller & Supplier)",
+    "financialStatements": "Financial Statements",
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "financialNotes": "Financial Notes",
+    "arApReport": "AR/AP Report",
+    "settings": "Settings",
+    "support": "Support",
+    "exchangeRates": "Exchange Rates",
+    "companies": "Companies",
+    "chartOfAccounts": "Chart of Accounts",
+    "partners": "Partners",
+    "fiscalPeriods": "Fiscal Periods",
+    "configuration": "Configuration",
+    "reportConfig": "Report Config",
+    "journalTypes": "Journal Types"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "managementReports": "Management Reports",
+    "profitReport": "Profit Report",
+    "finalReport": "Final Report",
+    "disputeManagement": "Dispute Management",
+    "byMarketReport": "By Market Report",
+    "reserveHold": "Reserve Hold",
+    "sellerCost": "Seller Cost",
+    "supplierCost": "Supplier Cost",
+    "glFinancial": "GL & Financial Reports",
+    "dataPreparation": "Data Preparation",
+    "financialReports": "Financial Reports",
+    "settings": "Settings"
+  },
+  "userMenu": {
+    "user": "User",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "welcome": "Welcome to BTM Finance Dashboard",
+    "profitReport": "Profit Report",
+    "disputes": "Disputes",
+    "reports": "Reports",
+    "periods": "Periods",
+    "recentActivity": "Recent Activity",
+    "noRecentActivity": "No recent activity"
+  },
+  "profitReport": {
+    "title": "Profit Report",
+    "col": {
+      "date": "Date",
+      "seller": "Seller",
+      "order": "Order",
+      "gmv": "GMV",
+      "shippingCost": "ShippingCost",
+      "additionalCost": "AdditionalCost",
+      "dispute": "Dispute",
+      "paymentGateway": "PaymentGateway",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "taxFee": "TaxFee",
+      "profit": "Profit",
+      "profitPct": "%Profit"
+    }
+  },
+  "finalReport": {
+    "title": "Final Report"
+  },
+  "disputeReport": {
+    "title": "Dispute And Chargeback Report",
+    "col": {
+      "caseType": "Case Type",
+      "order": "Order",
+      "disputeAmt": "DisputeAmt",
+      "disputeExp": "DisputeExp",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "fulfillCost": "FulfillCost",
+      "taxFee": "TaxFee",
+      "additionalCost": "AdditionalCost",
+      "totalPrice": "TotalPrice",
+      "dispute3Pct": "Dispute (3%)",
+      "netDisputeCost": "Net Dispute Cost"
+    },
+    "filter": {
+      "caseType": "Case Type",
+      "caseStatus": "Case Status",
+      "finalOutcome": "Final Case Outcome"
+    }
+  },
+  "byMarket": {
+    "title": "By Market Report",
+    "col": {
+      "country": "Country",
+      "order": "Order",
+      "gmv": "GMV",
+      "shippingCost": "ShippingCost",
+      "additionalCost": "AdditionalCost",
+      "dispute3Pct": "Dispute (3%)",
+      "paymentGateway": "PaymentGateway",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "taxFee": "TaxFee",
+      "profit": "Profit",
+      "profitPct": "%Profit"
+    },
+    "filter": {
+      "market": "Market"
+    }
+  },
+  "reserveHold": {
+    "title": "Reserve Hold"
+  },
+  "sellerCostReport": {
+    "title": "Seller Cost"
+  },
+  "supplierCostReport": {
+    "title": "Supplier Cost"
+  },
+  "table": {
+    "paidDate": "PaidDate",
+    "fulfilledDate": "FulfilledDate",
+    "dateField": "Date",
+    "seller": "Seller",
+    "comcode": "Comcode",
+    "status": "Status"
+  },
+  "dataEntry": {
+    "overall": "Data Preparation Overview",
+    "bettamax": "BettaMax Order Data",
+    "pingpong": "PingPong Statement",
+    "bank": "Bank Transactions",
+    "paypal": "PayPal Transactions",
+    "glEntry": "GL Entry",
+    "actualCosts": "Actual Costs (Seller & Supplier)"
+  },
+  "config": {
+    "exchangeRates": "Exchange Rates",
+    "companies": "Companies",
+    "chartOfAccounts": "Chart of Accounts",
+    "partners": "Partners",
+    "fiscalPeriods": "Fiscal Periods",
+    "reportConfig": "Report Configuration",
+    "journalTypes": "Journal Types"
+  },
+  "accounting": {
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "financialNotes": "Financial Notes",
+    "arAp": "AR/AP Report"
+  }
+}

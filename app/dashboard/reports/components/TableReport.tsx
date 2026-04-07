@@ -10,7 +10,7 @@ import StatusFilterDropdown from './StatusFilterDropdown';
 import SelectDropdown from '@/app/components/SelectDropdown';
 import DateRangeFilter from './DateRangeFilter';
 import ComcodeFilterDropdown from './ComcodeFilterDropdown';
-
+import { useT } from '@/lib/i18n/LocaleContext';
 
 export type FilterConfig = {
   key: string;
@@ -40,10 +40,7 @@ export type TableReportProps<T extends object> = {
 export default function TableReport<T extends object>({
   columns,
   dataSource,
-  dateFieldOptions = [
-    { label: 'PaidDate', key: 'PaidDate' },
-    { label: 'FulfilledDate', key: 'FulfilledDate' },
-  ],
+  dateFieldOptions,
   onChangePeriod,
   onDateRangeChange,
   loading = false,
@@ -54,22 +51,26 @@ export default function TableReport<T extends object>({
   filterSlot,
   expandable,
 }: TableReportProps<T>) {
+  const t = useT();
   const tableWrapRef = useRef<HTMLDivElement>(null);
+
+  const defaultDateFieldOptions = [
+    { label: t('table.paidDate'),      key: 'PaidDate' },
+    { label: t('table.fulfilledDate'), key: 'FulfilledDate' },
+  ];
 
   return (
     <div className="flex-1 flex flex-col gap-3 overflow-y-hidden bg-white p-4 rounded-lg">
       <div className="flex-shrink-0 flex gap-4 items-center justify-between">
-        {
-          isFinnalReport ? (
-            <DatePicker onChange={onChangePeriod} picker="month" />
-          ) : (
-            <DateRangeFilter onChange={onDateRangeChange} />
-          )
-        }
+        {isFinnalReport ? (
+          <DatePicker onChange={onChangePeriod} picker="month" />
+        ) : (
+          <DateRangeFilter onChange={onDateRangeChange} />
+        )}
         <div className="flex justify-end gap-4">
           <SelectDropdown
-            title="Date"
-            menuItems={dateFieldOptions}
+            title={t('table.dateField')}
+            menuItems={dateFieldOptions ?? defaultDateFieldOptions}
           />
           {filterSlot ?? (
             <>

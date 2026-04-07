@@ -10,11 +10,11 @@ import {
   LineChartOutlined,
 } from '@ant-design/icons';
 import { useRouter, usePathname } from 'next/navigation';
-import { menuItems, menuKeyToPath } from '@/lib/menu';
+import { getMenuItems, menuKeyToPath } from '@/lib/menu';
+import { useT } from '@/lib/i18n/LocaleContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 const { Sider, Header } = Layout;
-
-// ─── Sidebar ─────────────────────────────────────────────────────────────────
 
 interface SidebarProps {
   collapsed: boolean;
@@ -24,6 +24,7 @@ interface SidebarProps {
 export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useT();
 
   const getCurrentKey = () => {
     for (const [key, path] of Object.entries(menuKeyToPath)) {
@@ -71,12 +72,11 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         )}
       </div>
 
-      {/* Menu — openKeys controlled prevents mount animation */}
       <Menu
         mode="inline"
         selectedKeys={[getCurrentKey()]}
         defaultOpenKeys={collapsed ? [] : ['reports-group']}
-        items={menuItems}
+        items={getMenuItems(t)}
         onClick={({ key }) => {
           const path = menuKeyToPath[key as string];
           if (path) router.push(path);
@@ -94,9 +94,7 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
-          style={{
-            width: 60,
-          }}
+          style={{ width: 60 }}
         />
       </div>
     </Sider>
@@ -105,35 +103,37 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 
 export function TopHeader() {
   const pathname = usePathname();
+  const t = useT();
 
   const getBreadcrumb = () => {
-    const parts: { title: string }[] = [{ title: 'Trang chủ' }];
+    const parts: { title: string }[] = [{ title: t('breadcrumb.home') }];
     if (pathname.includes('/reports/profit'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Profit Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.profitReport') });
     else if (pathname.includes('/reports/final'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Final Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.finalReport') });
     else if (pathname.includes('/reports/dispute'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Dispute Management' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.disputeManagement') });
     else if (pathname.includes('/reports/by-market'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'By Market Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.byMarketReport') });
     else if (pathname.includes('/reports/reserve'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Reserve Hold' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.reserveHold') });
     else if (pathname.includes('/reports/seller'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Seller Cost' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.sellerCost') });
     else if (pathname.includes('/reports/supplier'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Supplier Cost' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.supplierCost') });
     else if (pathname.includes('/data-entry'))
-      parts.push({ title: 'Ghi sổ & báo cáo tài chính' }, { title: 'Chuẩn bị số liệu' });
+      parts.push({ title: t('breadcrumb.glFinancial') }, { title: t('breadcrumb.dataPreparation') });
     else if (pathname.includes('/accounting'))
-      parts.push({ title: 'Ghi sổ & báo cáo tài chính' }, { title: 'Báo cáo tài chính' });
-    else if (pathname.includes('/config')) parts.push({ title: 'Thiết lập chung' });
+      parts.push({ title: t('breadcrumb.glFinancial') }, { title: t('breadcrumb.financialReports') });
+    else if (pathname.includes('/config'))
+      parts.push({ title: t('breadcrumb.settings') });
     return parts;
   };
 
   const userMenu: MenuProps['items'] = [
-    { key: 'profile', label: 'Profile', icon: <UserOutlined /> },
+    { key: 'profile', label: t('userMenu.profile'), icon: <UserOutlined /> },
     { type: 'divider' },
-    { key: 'logout', label: 'Logout', icon: <LogoutOutlined />, danger: true },
+    { key: 'logout', label: t('userMenu.logout'), icon: <LogoutOutlined />, danger: true },
   ];
 
   return (
@@ -156,7 +156,8 @@ export function TopHeader() {
       </Space>
 
       <Space size={8}>
-        <span style={{ fontSize: 13, color: '#595959' }}>User</span>
+        <LanguageSwitcher />
+        <span style={{ fontSize: 13, color: '#595959' }}>{t('userMenu.user')}</span>
         <Dropdown menu={{ items: userMenu }} placement="bottomRight" trigger={['click']}>
           <Avatar
             size={32}

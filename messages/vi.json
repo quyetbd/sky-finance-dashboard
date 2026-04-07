@@ -1,0 +1,173 @@
+{
+  "common": {
+    "export": "Xuất file",
+    "total": "TỔNG CỘNG",
+    "clearSelection": "Bỏ chọn",
+    "selectOptions": "Chọn",
+    "comingSoon": "Đang phát triển...",
+    "financialStatementPlaceholder": "Báo cáo tài chính (đang phát triển)",
+    "configPlaceholder": "Trang cấu hình (đang phát triển)",
+    "dataEntryPlaceholder": "Form nhập liệu (đang phát triển)",
+    "reportPlaceholder": "Nội dung báo cáo (đang phát triển)"
+  },
+  "nav": {
+    "reports": "Báo cáo quản trị",
+    "profitReport": "Báo cáo Profit",
+    "finalReport": "Báo cáo Quyết toán",
+    "disputeManagement": "Quản lý Tranh chấp",
+    "byMarketReport": "Báo cáo theo Thị trường",
+    "glFinancial": "Ghi sổ & báo cáo tài chính",
+    "dataPreparation": "Chuẩn bị số liệu và ghi sổ",
+    "generalLedger": "Sổ cái",
+    "glEntry": "GL Entry",
+    "actualCosts": "Supplier Cost & Seller Cost thực tế",
+    "financialStatements": "Báo cáo tài chính",
+    "balanceSheet": "Bảng cân đối kế toán",
+    "incomeStatement": "Báo cáo kết quả HĐKD",
+    "financialNotes": "Thuyết minh báo cáo tài chính",
+    "arApReport": "Báo cáo Phải thu, Phải trả",
+    "settings": "Thiết lập chung",
+    "support": "Hỗ trợ",
+    "exchangeRates": "Khai báo tỷ giá",
+    "companies": "Quản lý Công ty",
+    "chartOfAccounts": "Hệ thống tài khoản",
+    "partners": "Quản lý đối tác",
+    "fiscalPeriods": "Quản lý Kỳ kế toán",
+    "configuration": "Cấu hình",
+    "reportConfig": "Cấu hình báo cáo",
+    "journalTypes": "Loại giao dịch"
+  },
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "managementReports": "Báo cáo quản trị",
+    "profitReport": "Báo cáo Profit",
+    "finalReport": "Báo cáo Quyết toán",
+    "disputeManagement": "Quản lý Tranh chấp",
+    "byMarketReport": "Báo cáo theo Thị trường",
+    "reserveHold": "Reserve Hold",
+    "sellerCost": "Chi phí Seller",
+    "supplierCost": "Chi phí Supplier",
+    "glFinancial": "Ghi sổ & báo cáo tài chính",
+    "dataPreparation": "Chuẩn bị số liệu",
+    "financialReports": "Báo cáo tài chính",
+    "settings": "Thiết lập chung"
+  },
+  "userMenu": {
+    "user": "Người dùng",
+    "profile": "Hồ sơ cá nhân",
+    "logout": "Đăng xuất"
+  },
+  "dashboard": {
+    "welcome": "Chào mừng đến BTM Finance",
+    "profitReport": "Báo cáo Profit",
+    "disputes": "Tranh chấp",
+    "reports": "Báo cáo",
+    "periods": "Kỳ kế toán",
+    "recentActivity": "Hoạt động gần đây",
+    "noRecentActivity": "Chưa có hoạt động nào"
+  },
+  "profitReport": {
+    "title": "Báo cáo Profit",
+    "col": {
+      "date": "Ngày",
+      "seller": "Seller",
+      "order": "Đơn hàng",
+      "gmv": "GMV",
+      "shippingCost": "Phí vận chuyển",
+      "additionalCost": "CP phát sinh",
+      "dispute": "Dispute",
+      "paymentGateway": "Phí cổng TT",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "taxFee": "Thuế & phí",
+      "profit": "Lợi nhuận",
+      "profitPct": "% LN"
+    }
+  },
+  "finalReport": {
+    "title": "Báo cáo Quyết toán"
+  },
+  "disputeReport": {
+    "title": "Báo cáo Tranh chấp & Hoàn tiền",
+    "col": {
+      "caseType": "Loại Case",
+      "order": "Đơn hàng",
+      "disputeAmt": "Số tiền TC",
+      "disputeExp": "Chi phí TC",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "fulfillCost": "CP Fulfill",
+      "taxFee": "Thuế & phí",
+      "additionalCost": "CP phát sinh",
+      "totalPrice": "Tổng tiền",
+      "dispute3Pct": "Dispute (3%)",
+      "netDisputeCost": "Chi phí TC ròng"
+    },
+    "filter": {
+      "caseType": "Loại Case",
+      "caseStatus": "Trạng thái",
+      "finalOutcome": "Kết quả"
+    }
+  },
+  "byMarket": {
+    "title": "Báo cáo theo Thị trường",
+    "col": {
+      "country": "Quốc gia",
+      "order": "Đơn hàng",
+      "gmv": "GMV",
+      "shippingCost": "Phí vận chuyển",
+      "additionalCost": "CP phát sinh",
+      "dispute3Pct": "Dispute (3%)",
+      "paymentGateway": "Phí cổng TT",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "taxFee": "Thuế & phí",
+      "profit": "Lợi nhuận",
+      "profitPct": "% LN"
+    },
+    "filter": {
+      "market": "Thị trường"
+    }
+  },
+  "reserveHold": {
+    "title": "Reserve Hold"
+  },
+  "sellerCostReport": {
+    "title": "Chi phí Seller"
+  },
+  "supplierCostReport": {
+    "title": "Chi phí Supplier"
+  },
+  "table": {
+    "paidDate": "Ngày thanh toán",
+    "fulfilledDate": "Ngày giao hàng",
+    "dateField": "Ngày",
+    "seller": "Seller",
+    "comcode": "Comcode",
+    "status": "Trạng thái"
+  },
+  "dataEntry": {
+    "overall": "Tổng quan chuẩn bị số liệu",
+    "bettamax": "Dữ liệu đơn hàng BettaMax",
+    "pingpong": "Sao kê PingPong",
+    "bank": "Giao dịch ngân hàng",
+    "paypal": "Giao dịch PayPal",
+    "glEntry": "Bút toán thủ công",
+    "actualCosts": "Chi phí thực tế (Seller & Supplier)"
+  },
+  "config": {
+    "exchangeRates": "Khai báo tỷ giá",
+    "companies": "Quản lý Công ty",
+    "chartOfAccounts": "Hệ thống tài khoản",
+    "partners": "Quản lý đối tác",
+    "fiscalPeriods": "Quản lý Kỳ kế toán",
+    "reportConfig": "Cấu hình báo cáo",
+    "journalTypes": "Loại giao dịch"
+  },
+  "accounting": {
+    "balanceSheet": "Bảng cân đối kế toán",
+    "incomeStatement": "Báo cáo kết quả HĐKD",
+    "financialNotes": "Thuyết minh báo cáo tài chính",
+    "arAp": "Báo cáo Phải thu, Phải trả"
+  }
+}
