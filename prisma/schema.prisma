@@ -373,18 +373,39 @@ model CashFlowPlan {
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
+enum Role {
+  FC
+  Accountant
+  Director
+  Viewer
+}
+
 model User {
-  id               String   @id @default(cuid())
-  email            String   @unique
-  name             String?
-  role             String   @default("Viewer")
-  // Admin | Accountant | AM | Director | FC | Viewer
-  allowedComcodes  String[] // Array of Comcode — PostgreSQL native array
-  // Mọi query phải WHERE comcode IN (user.allowedComcodes)
-  firebaseUid      String?  @unique
-  active           Boolean  @default(true)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                 String             @id @default(cuid())
+  email              String             @unique
+  passwordHash       String
+  role               Role
+  allowedComcodes    String[]
+  mustChangePassword Boolean            @default(true)
+  failedLoginCount   Int                @default(0)
+  lockedUntil        DateTime?
+  isActive           Boolean            @default(true)
+  createdBy          String
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  viewerPermissions  ViewerPermission[]
 
   @@map("users")
+}
+
+model ViewerPermission {
+  id        Int    @id @default(autoincrement())
+  userId    String
+  comcode   String
+  reportKey String
+  user      User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, comcode, reportKey])
+  @@map("viewer_permissions")
 }

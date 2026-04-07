@@ -3,74 +3,80 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, Card, Typography, Alert, Space } from 'antd'
 import { LockOutlined, MailOutlined, LineChartOutlined } from '@ant-design/icons'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { firebaseAuth } from '@/lib/firebase-client'
 
 const { Title, Text } = Typography
 
-interface LoginForm {
-  email:    string
+interface LoginFormValues {
+  email: string
   password: string
 }
 
-export default function LoginPage() {
-  const router  = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState<string | null>(null)
+function parseLoginError(error: string): string {
+  // Account locked — message format: "Account locked until <ISO date>"
+  if (error.includes('Account locked until') || error === 'AccountLocked') {
+    try {
+      const isoMatch = error.match(/until (.+)$/)
+      if (isoMatch) {
+        const lockedUntil = new Date(isoMatch[1])
+        const diffMs = lockedUntil.getTime() - Date.now()
+        const diffMins = Math.max(1, Math.ceil(diffMs / 60000))
+        return `Tài khoản tạm thời bị khóa. Thử lại sau ${diffMins} phút hoặc liên hệ FC.`
+      }
+    } catch {
+      // fall through
+    }
+    return 'Tài khoản tạm thời bị khóa. Vui lòng liên hệ FC để được hỗ trợ.'
+  }
 
-  const onSubmit = async (values: LoginForm) => {
+  // Remaining attempts — message: "Invalid credentials. X attempt(s) remaining before lockout"
+  const remainingMatch = error.match(/(\d+)\s+attempt/)
+  if (remainingMatch) {
+    return `Email hoặc mật khẩu không đúng. Còn ${remainingMatch[1]} lần thử.`
+  }
+
+  return 'Email hoặc mật khẩu không đúng.'
+}
+
+export default function LoginPage() {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const onSubmit = async (values: LoginFormValues) => {
     setLoading(true)
     setError(null)
 
-    try {
-      // 1. Firebase client auth — lấy ID token
-      const credential = await signInWithEmailAndPassword(
-        firebaseAuth,
-        values.email,
-        values.password,
-      )
-      const idToken = await credential.user.getIdToken()
+    const result = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    })
 
-      // 2. Truyền token cho NextAuth — tạo session
-      const result = await signIn('firebase', {
-        idToken,
-        redirect: false,
-      })
+    setLoading(false)
 
-      if (result?.error) {
-        setError('Email hoặc mật khẩu không đúng, hoặc tài khoản chưa được cấp quyền.')
-        return
-      }
-
-      // 3. Chuyển về dashboard
-      router.push('/dashboard/reports/profit')
-      router.refresh()
-    } catch (err: unknown) {
-      const firebaseError = err as { code?: string }
-      if (
-        firebaseError.code === 'auth/invalid-credential' ||
-        firebaseError.code === 'auth/user-not-found' ||
-        firebaseError.code === 'auth/wrong-password'
-      ) {
-        setError('Email hoặc mật khẩu không đúng.')
-      } else if (firebaseError.code === 'auth/too-many-requests') {
-        setError('Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau.')
-      } else {
-        setError('Đã xảy ra lỗi. Vui lòng thử lại.')
-      }
-    } finally {
-      setLoading(false)
+    if (!result) {
+      setError('Đã xảy ra lỗi. Vui lòng thử lại.')
+      return
     }
+
+    if (result.error) {
+      setError(parseLoginError(result.error))
+      return
+    }
+
+    // Middleware will redirect to /change-password if mustChangePassword is true
+    router.push('/dashboard/profit')
+    router.refresh()
   }
 
   return (
     <Card
       style={{
-        width:        400,
+        width: 400,
         borderRadius: 12,
-        boxShadow:    '0 4px 24px rgba(0,0,0,0.10)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
       }}
       styles={{ body: { padding: '40px 40px 32px' } }}
     >
@@ -78,12 +84,12 @@ export default function LoginPage() {
       <Space orientation="vertical" align="center" style={{ width: '100%', marginBottom: 32 }}>
         <div
           style={{
-            width:        48,
-            height:       48,
+            width: 48,
+            height: 48,
             borderRadius: 12,
-            background:   '#1d4ed8',
-            display:      'flex',
-            alignItems:   'center',
+            background: '#1d4ed8',
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
           }}
         >
@@ -99,11 +105,9 @@ export default function LoginPage() {
 
       {error && (
         <Alert
-          message={error}
+          title={error}
           type="error"
           showIcon
-          closable
-          onClose={() => setError(null)}
           style={{ marginBottom: 20, borderRadius: 8 }}
         />
       )}
@@ -119,7 +123,7 @@ export default function LoginPage() {
           label="Email"
           rules={[
             { required: true, message: 'Vui lòng nhập email' },
-            { type: 'email',  message: 'Email không hợp lệ' },
+            { type: 'email', message: 'Email không hợp lệ' },
           ]}
         >
           <Input
@@ -146,6 +150,7 @@ export default function LoginPage() {
             type="primary"
             htmlType="submit"
             loading={loading}
+            disabled={loading}
             block
             style={{ height: 44, borderRadius: 8, fontWeight: 600 }}
           >
@@ -156,14 +161,14 @@ export default function LoginPage() {
 
       <Text
         style={{
-          display:   'block',
+          display: 'block',
           textAlign: 'center',
           marginTop: 24,
-          fontSize:  12,
-          color:     '#9ca3af',
+          fontSize: 12,
+          color: '#9ca3af',
         }}
       >
-        Liên hệ Admin để được cấp tài khoản
+        Quên mật khẩu? Liên hệ FC để được hỗ trợ.
       </Text>
     </Card>
   )

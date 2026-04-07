@@ -16,6 +16,7 @@ import {
   BarChartOutlined,
   AccountBookOutlined,
   AppstoreOutlined,
+  UserOutlined,
 } from '@ant-design/icons'
 
 export type MenuItem = Required<MenuProps>['items'][number]
@@ -67,7 +68,10 @@ export const menuItems: MenuItem[] = [
     ]),
   ]),
 
-  // III. Thiết lập chung (Settings)
+  // III. Quản lý User (FC only — filtered in Sidebar)
+  getMenuItem('Quản lý User', 'user-management', <UserOutlined />),
+
+  // IV. Thiết lập chung (Settings)
   getMenuItem('Thiết lập chung', 'settings-group', <AppstoreOutlined />, [
     getMenuItem('Hỗ trợ', 'support', null, [
       getMenuItem('Khai báo tỷ giá', 'exchange-rates', <DollarOutlined />),
@@ -121,4 +125,5 @@ export const menuKeyToPath: Record<string, string> = {
   'fiscal-periods': '/dashboard/config/fiscal-periods',
   'report-config': '/dashboard/config/report-config',
   'journal-types': '/dashboard/config/journal-types',
+  'user-management': '/dashboard/users',
 }
