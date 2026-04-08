@@ -49,7 +49,7 @@ model JournalTypeRule {
 }
 
 model FiscalPeriod {
-  id        String   @id // "YYYYMM"
+  id        String   @id // "{companyId}_{YYYYMM}" e.g. "ZeniroxPay_202501"
   companyId String
   year      Int
   quarter   Int
@@ -60,6 +60,7 @@ model FiscalPeriod {
   note      String?
 
   @@index([companyId, status])
+  @@index([year, month])
   @@map("fiscal_periods")
 }
 
@@ -284,6 +285,7 @@ model GlEntry {
   reversedId     String? // FK → GlEntry.id (bút toán bị đảo)
   partnerTaxId   String?
   segment        String?
+  glStatus       String   @default("Posted") // Draft | Posted — Manual entries start as Draft
   createdAt      DateTime @default(now())
   createdBy      String
 
@@ -291,6 +293,7 @@ model GlEntry {
   @@index([accountCode, period])
   @@index([docNum])
   @@index([referenceTxnId])
+  @@index([glStatus, dataSource])
   @@map("gl_entries")
 }
 

@@ -10,14 +10,20 @@ type SelectDropdownProps = {
     label: string;
     icon?: React.ReactNode;
   }[];
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
-const SelectDropdown = ({ title, menuItems }: SelectDropdownProps) => {
+const SelectDropdown = ({ title, menuItems, value, onChange }: SelectDropdownProps) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string>('');
+  const [internalSelected, setInternalSelected] = useState<string>('');
 
-  const handleMenuClick = (e: { key: string }) => {
-    setSelected(selected === e.key ? '' : e.key);
+  const selected = value !== undefined ? value : internalSelected;
+
+  const handleMenuClick = (item: { key: string; label: string }) => {
+    const newVal = selected === item.key ? '' : item.key;
+    if (value === undefined) setInternalSelected(newVal);
+    onChange?.(newVal);
   };
 
   const menu = (menuItems || []).map((item) => ({
@@ -32,7 +38,7 @@ const SelectDropdown = ({ title, menuItems }: SelectDropdownProps) => {
   }));
 
   return (
-    <Dropdown open={open} onOpenChange={setOpen} trigger={[ "click" ]} menu={{ items: menu }}>
+    <Dropdown open={open} onOpenChange={setOpen} trigger={["click"]} menu={{ items: menu }} placement='bottomRight'>
       <Button
         className={cn([
           '[&_.ant-btn-icon]:!h-full [&_.ant-btn-icon]:!pt-1 border border-colorBorderSecondary text-fontSizeBase',
@@ -41,7 +47,11 @@ const SelectDropdown = ({ title, menuItems }: SelectDropdownProps) => {
             : '',
         ])}
       >
-        <span className="text-fontSizeBase">{title}</span>
+        <span className="text-fontSizeBase">
+          {selected && selected !== 'all'
+            ? (menuItems.find(m => m.key === selected)?.label || title)
+            : title}
+        </span>
         <div className={cn('ml-1 transition-transform', open ? 'rotate-180' : '')}>
           <DownOutlined />
         </div>

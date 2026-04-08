@@ -15,6 +15,7 @@ import {
   BarChartOutlined,
   AccountBookOutlined,
   AppstoreOutlined,
+  TableOutlined,
 } from '@ant-design/icons'
 
 export type MenuItem = Required<MenuProps>['items'][number]
@@ -42,7 +43,7 @@ export function getMenuItems(t: (key: string) => string): MenuItem[] {
     // II. GL & Financial Reports
     getMenuItem(t('nav.glFinancial'), 'accounting-group', <AccountBookOutlined />, [
       getMenuItem(t('nav.dataPreparation'), 'data-preparation', null, [
-        getMenuItem(t('nav.generalLedger'), 'data-prep-overall', <DashboardOutlined />),
+        // getMenuItem(t('nav.generalLedger'), 'data-prep-overall', <DashboardOutlined />),
         getMenuItem('BettaMax', 'data-prep-bettamax', <ContainerOutlined />),
         getMenuItem('PingPong', 'data-prep-pingpong', <ContainerOutlined />),
         getMenuItem('Bank', 'data-prep-bank', <ContainerOutlined />),
@@ -51,6 +52,7 @@ export function getMenuItems(t: (key: string) => string): MenuItem[] {
         getMenuItem(t('nav.actualCosts'), 'actual-costs', <BookOutlined />),
       ]),
       getMenuItem(t('nav.financialStatements'), 'financial-statements', null, [
+        getMenuItem(t('nav.glViewer'), 'gl-viewer', <TableOutlined />),
         getMenuItem(t('nav.balanceSheet'), 'balance-sheet', <BookOutlined />),
         getMenuItem(t('nav.incomeStatement'), 'income-statement', <BookOutlined />),
         getMenuItem(t('nav.financialNotes'), 'financial-notes', <BookOutlined />),
@@ -86,29 +88,30 @@ export const defaultOpenKeys = [
 ]
 
 export const menuKeyToPath: Record<string, string> = {
-  'profit-report':      '/dashboard/reports/profit',
-  'final-report':       '/dashboard/reports/final',
+  'profit-report': '/dashboard/reports/profit',
+  'final-report': '/dashboard/reports/final',
   'dispute-management': '/dashboard/reports/dispute',
-  'by-market-report':   '/dashboard/reports/by-market',
-  'reserve-hold':       '/dashboard/reports/reserve-hold',
-  'seller-cost':        '/dashboard/reports/seller-cost',
-  'supplier-cost':      '/dashboard/reports/supplier-cost',
-  'data-prep-overall':  '/dashboard/data-entry/overall',
+  'by-market-report': '/dashboard/reports/by-market',
+  'reserve-hold': '/dashboard/reports/reserve-hold',
+  'seller-cost': '/dashboard/reports/seller-cost',
+  'supplier-cost': '/dashboard/reports/supplier-cost',
+  // 'data-prep-overall':  '/dashboard/data-entry/overall',
   'data-prep-bettamax': '/dashboard/data-entry/bettamax',
   'data-prep-pingpong': '/dashboard/data-entry/pingpong',
-  'data-prep-bank':     '/dashboard/data-entry/bank',
-  'data-prep-paypal':   '/dashboard/data-entry/paypal',
-  'gl-entry':           '/dashboard/data-entry/gl-entry',
-  'actual-costs':       '/dashboard/data-entry/actual-costs',
-  'balance-sheet':      '/dashboard/accounting/balance-sheet',
-  'income-statement':   '/dashboard/accounting/income-statement',
-  'financial-notes':    '/dashboard/accounting/financial-notes',
-  'ar-ap-report':       '/dashboard/accounting/ar-ap',
-  'exchange-rates':     '/dashboard/config/exchange-rates',
-  'companies':          '/dashboard/config/companies',
-  'chart-of-accounts':  '/dashboard/config/chart-of-accounts',
-  'partners':           '/dashboard/config/partners',
-  'fiscal-periods':     '/dashboard/config/fiscal-periods',
-  'report-config':      '/dashboard/config/report-config',
-  'journal-types':      '/dashboard/config/journal-types',
+  'data-prep-bank': '/dashboard/data-entry/bank',
+  'data-prep-paypal': '/dashboard/data-entry/paypal',
+  'gl-entry': '/dashboard/data-entry/gl-entry',
+  'actual-costs': '/dashboard/data-entry/actual-costs',
+  'gl-viewer': '/dashboard/accounting/gl-viewer',
+  'balance-sheet': '/dashboard/accounting/balance-sheet',
+  'income-statement': '/dashboard/accounting/income-statement',
+  'financial-notes': '/dashboard/accounting/financial-notes',
+  'ar-ap-report': '/dashboard/accounting/ar-ap',
+  'exchange-rates': '/dashboard/config/exchange-rates',
+  'companies': '/dashboard/config/companies',
+  'chart-of-accounts': '/dashboard/config/chart-of-accounts',
+  'partners': '/dashboard/config/partners',
+  'fiscal-periods': '/dashboard/config/fiscal-periods',
+  'report-config': '/dashboard/config/report-config',
+  'journal-types': '/dashboard/config/journal-types',
 }

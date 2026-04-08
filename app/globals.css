@@ -24,3 +24,22 @@ body {
 .report-table .ant-table-body {
   min-height: calc(100vh - 316px);
 }
+
+/* Scrollbar Styling (Mac OS glass style) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(144, 147, 153, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(144, 147, 153, 0.5);
+}

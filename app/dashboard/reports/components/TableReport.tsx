@@ -35,6 +35,9 @@ export type TableReportProps<T extends object> = {
   isFinnalReport?: boolean;
   filterSlot?: React.ReactNode;
   expandable?: TableProps<T>['expandable'];
+  pagination?: TableProps<T>['pagination'];
+  hideFilterBar?: boolean;
+  rowSelection?: TableProps<T>['rowSelection'];
 };
 
 export default function TableReport<T extends object>({
@@ -47,40 +50,45 @@ export default function TableReport<T extends object>({
   summary,
   scrollX = 1200,
   rowKey = 'key',
-  isFinnalReport = false,
   filterSlot,
+  isFinnalReport = false,
   expandable,
+  pagination,
+  hideFilterBar = false,
+  rowSelection,
 }: TableReportProps<T>) {
   const t = useT();
   const tableWrapRef = useRef<HTMLDivElement>(null);
 
   const defaultDateFieldOptions = [
-    { label: t('table.paidDate'),      key: 'PaidDate' },
+    { label: t('table.paidDate'), key: 'PaidDate' },
     { label: t('table.fulfilledDate'), key: 'FulfilledDate' },
   ];
 
   return (
-    <div className="flex-1 flex flex-col gap-3 overflow-y-hidden bg-white p-4 rounded-lg">
-      <div className="flex-shrink-0 flex gap-4 items-center justify-between">
-        {isFinnalReport ? (
-          <DatePicker onChange={onChangePeriod} picker="month" />
-        ) : (
-          <DateRangeFilter onChange={onDateRangeChange} />
-        )}
-        <div className="flex justify-end gap-4">
-          <SelectDropdown
-            title={t('table.dateField')}
-            menuItems={dateFieldOptions ?? defaultDateFieldOptions}
-          />
-          {filterSlot ?? (
-            <>
-              <ComcodeFilterDropdown />
-              <SellerFilterDropdown />
-              <StatusFilterDropdown />
-            </>
+    <div className={`flex-1 flex flex-col gap-3 ${hideFilterBar ? 'p-0' : 'p-4'} overflow-y-hidden bg-white rounded-lg`}>
+      {!hideFilterBar && (
+        <div className="flex-shrink-0 flex gap-4 items-center justify-between">
+          {isFinnalReport ? (
+            <DatePicker onChange={onChangePeriod} picker="month" />
+          ) : (
+            <DateRangeFilter onChange={onDateRangeChange} />
           )}
+          <div className="flex justify-end gap-4">
+            <SelectDropdown
+              title={t('table.dateField')}
+              menuItems={dateFieldOptions ?? defaultDateFieldOptions}
+            />
+            {filterSlot ?? (
+              <>
+                <ComcodeFilterDropdown />
+                <SellerFilterDropdown />
+                <StatusFilterDropdown />
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       <div ref={tableWrapRef} style={{ flex: 1, overflow: 'hidden' }}>
         <Table<T>
@@ -89,12 +97,13 @@ export default function TableReport<T extends object>({
           columns={columns}
           dataSource={dataSource}
           loading={loading}
-          pagination={false}
+          pagination={pagination ?? false}
           size="small"
-          scroll={{ x: scrollX, y: 'calc(100vh - 316px)' }}
+          scroll={{ x: scrollX, y: 'calc(100vh - 275px)' }}
           bordered
           expandable={expandable}
           summary={summary}
+          rowSelection={rowSelection}
         />
       </div>
     </div>

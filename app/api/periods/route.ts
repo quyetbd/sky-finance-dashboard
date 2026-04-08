@@ -1,35 +1,38 @@
 import { NextResponse, NextRequest } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { ApiResponse } from '@/lib/types'
+import { ApiResponse, FiscalPeriodRecord } from '@/lib/types'
 
+// GET /api/periods?year=2025&status=Open&comcode=ZeniroxPay
+// Trả về flat array FiscalPeriod records, hỗ trợ filter theo year, status, comcode
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
-  const companyId = searchParams.get('companyId')
+  const yearParam = searchParams.get('year')
+  const statusParam = searchParams.get('status')
+  const comcodeParam = searchParams.get('comcode')
 
-  const where: any = {}
-  if (companyId) where.companyId = companyId
+  const where: { year?: number; status?: string; companyId?: string } = {}
+  if (yearParam) {
+    const year = parseInt(yearParam, 10)
+    if (!isNaN(year)) where.year = year
+  }
+  if (statusParam) where.status = statusParam
+  if (comcodeParam && comcodeParam !== 'all') where.companyId = comcodeParam
 
   const periods = await prisma.fiscalPeriod.findMany({
     where,
-    orderBy: { id: 'desc' },
+    orderBy: [{ year: 'asc' }, { month: 'asc' }, { companyId: 'asc' }],
   })
 
+  // Serialize Date → ISO string (JSON.stringify làm tự động, nhưng cast tường minh cho type safety)
+  const data: FiscalPeriodRecord[] = periods.map((p) => ({
+    ...p,
+    startDate: p.startDate.toISOString(),
+    endDate: p.endDate.toISOString(),
+    status: p.status as FiscalPeriodRecord['status'],
+  }))
+
   return NextResponse.json({
-    data: periods,
-    meta: { total: periods.length },
-  } as ApiResponse<typeof periods>)
-}
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json()
-    const period = await prisma.fiscalPeriod.create({ data: body })
-
-    return NextResponse.json(
-      { data: period } as ApiResponse<typeof period>,
-      { status: 201 }
-    )
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 })
-  }
+    data,
+    meta: { total: data.length },
+  } as ApiResponse<FiscalPeriodRecord[]>)
 }
