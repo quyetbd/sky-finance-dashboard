@@ -36,7 +36,8 @@
     "configuration": "Cấu hình",
     "reportConfig": "Cấu hình báo cáo",
     "journalTypes": "Loại giao dịch",
-    "glViewer": "Sổ cái"
+    "glViewer": "Sổ cái",
+    "userManagement": "Quản lý người dùng"
   },
   "breadcrumb": {
     "home": "Trang chủ",

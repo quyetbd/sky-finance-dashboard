@@ -7,7 +7,7 @@ import {
   AreaChartOutlined,
   DollarOutlined,
   SettingOutlined,
-  DashboardOutlined,
+  // DashboardOutlined,
   FormOutlined,
   BookOutlined,
   TeamOutlined,
@@ -15,6 +15,7 @@ import {
   BarChartOutlined,
   AccountBookOutlined,
   AppstoreOutlined,
+  UserOutlined,
   TableOutlined,
 } from '@ant-design/icons'
 
@@ -30,7 +31,7 @@ function getMenuItem(
   return { key, icon, children, label, type } as MenuItem
 }
 
-export function getMenuItems(t: (key: string) => string): MenuItem[] {
+export function menuItems(t: (key: string) => string): MenuItem[] {
   return [
     // I. Management Reports
     getMenuItem(t('nav.reports'), 'reports-group', <BarChartOutlined />, [
@@ -60,7 +61,10 @@ export function getMenuItems(t: (key: string) => string): MenuItem[] {
       ]),
     ]),
 
-    // III. Settings
+    // III. Quản lý User (FC only — filtered in Sidebar)
+    getMenuItem(t('nav.userManagement'), 'user-management', <UserOutlined />),
+
+    // IV. Settings
     getMenuItem(t('nav.settings'), 'settings-group', <AppstoreOutlined />, [
       getMenuItem(t('nav.support'), 'support', null, [
         getMenuItem(t('nav.exchangeRates'), 'exchange-rates', <DollarOutlined />),
@@ -114,4 +118,5 @@ export const menuKeyToPath: Record<string, string> = {
   'fiscal-periods': '/dashboard/config/fiscal-periods',
   'report-config': '/dashboard/config/report-config',
   'journal-types': '/dashboard/config/journal-types',
+  'user-management': '/dashboard/users',
 }
