@@ -12,7 +12,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 // import { menuItems, menuKeyToPath } from '@/lib/menu';
 import { useAuth } from '@/lib/auth/useAuth';
-import { getMenuItems, menuItems, menuKeyToPath } from '@/lib/menu';
+import { menuItems, menuKeyToPath } from '@/lib/menu';
 import { useT } from '@/lib/i18n/LocaleContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -27,16 +27,17 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { isFC } = useAuth();
+  const t = useT();
 
   // Filter out "Quản lý User" for non-FC roles
+  const allItems = menuItems(t);
   const visibleItems = isFC
-    ? menuItems
-    : menuItems.filter((item) => {
+    ? allItems
+    : allItems.filter((item) => {
         if (!item || typeof item !== 'object') return true;
         const key = (item as { key?: string }).key;
         return key !== 'user-management';
       });
-  // const t = useT();
 
   const getCurrentKey = () => {
     for (const [key, path] of Object.entries(menuKeyToPath)) {

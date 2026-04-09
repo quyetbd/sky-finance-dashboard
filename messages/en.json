@@ -36,7 +36,8 @@
     "configuration": "Configuration",
     "reportConfig": "Report Config",
     "journalTypes": "Journal Types",
-    "glViewer": "General Ledger"
+    "glViewer": "General Ledger",
+    "userManagement": "User Management"
   },
   "breadcrumb": {
     "home": "Home",

@@ -68,7 +68,7 @@ export function ChangePasswordForm() {
 
       // Refresh session to clear mustChangePassword flag
       await updateSession()
-      router.push('/dashboard/profit')
+      router.push('/dashboard/reports/profit')
     } catch {
       setError('Đã có lỗi xảy ra. Vui lòng thử lại.')
     } finally {

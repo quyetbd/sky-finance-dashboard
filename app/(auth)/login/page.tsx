@@ -67,7 +67,7 @@ export default function LoginPage() {
     }
 
     // Middleware will redirect to /change-password if mustChangePassword is true
-    router.push('/dashboard/profit')
+    router.push('/dashboard/reports/profit')
     router.refresh()
   }
 

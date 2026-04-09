@@ -7,7 +7,7 @@ import {
   AreaChartOutlined,
   DollarOutlined,
   SettingOutlined,
-  DashboardOutlined,
+  // DashboardOutlined,
   FormOutlined,
   BookOutlined,
   TeamOutlined,
@@ -31,7 +31,7 @@ function getMenuItem(
   return { key, icon, children, label, type } as MenuItem
 }
 
-export function getMenuItems(t: (key: string) => string): MenuItem[] {
+export function menuItems(t: (key: string) => string): MenuItem[] {
   return [
     // I. Management Reports
     getMenuItem(t('nav.reports'), 'reports-group', <BarChartOutlined />, [
@@ -62,7 +62,7 @@ export function getMenuItems(t: (key: string) => string): MenuItem[] {
     ]),
 
     // III. Quản lý User (FC only — filtered in Sidebar)
-    getMenuItem('Quản lý User', 'user-management', <UserOutlined />),
+    getMenuItem(t('nav.userManagement'), 'user-management', <UserOutlined />),
 
     // IV. Settings
     getMenuItem(t('nav.settings'), 'settings-group', <AppstoreOutlined />, [
