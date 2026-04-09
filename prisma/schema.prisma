@@ -24,12 +24,15 @@ model Company {
 }
 
 model ChartOfAccount {
-  accountCode Int    @id
+  accountCode Int      @id
   accountName String
-  accountType String // A=Asset L=Liability E=Equity R=Revenue X=Expense
-  balanceSide String // Dr | Cr
-  status      String  @default("Active")
-  arap        String? // "AR" | "AP" | null
+  accountType String   // A=Asset L=Liability E=Equity R=Revenue Exp=Expense
+  balanceSide String   // Dr | Cr
+  status      String   @default("Active")
+  arap        String?  // "AR" | "AP" | null
+  arapType    String?  // "Receivables from Customers" | "Payable to Suppliers" | etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("chart_of_accounts")
 }

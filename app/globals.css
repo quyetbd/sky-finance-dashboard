@@ -21,9 +21,9 @@ body {
 }
 
 /* Force table body to always fill the scroll area so Table.Summary fixed="bottom" sticks */
-.report-table .ant-table-body {
+/* .report-table .ant-table-body {
   min-height: calc(100vh - 316px);
-}
+} */
 
 .fade-scrollbar {
   overflow-y: auto;
@@ -84,4 +84,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(144, 147, 153, 0.5);
+}
+
+
+.table-report .ant-table-body {
+  overflow-y: auto !important;
+}
+
+.table-report .ant-table-body {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
 }

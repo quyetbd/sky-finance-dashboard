@@ -90,7 +90,7 @@ export default function TableReport<T extends object>({
         </div>
       )}
 
-      <div ref={tableWrapRef} style={{ flex: 1, overflow: 'hidden' }}>
+      <div className='table-report flex-1 overflow-hidden' ref={tableWrapRef}>
         <Table<T>
           className="report-table"
           rowKey={rowKey}
@@ -99,7 +99,7 @@ export default function TableReport<T extends object>({
           loading={loading}
           pagination={pagination ?? false}
           size="small"
-          scroll={{ x: scrollX, y: 'calc(100vh - 275px)' }}
+          scroll={{ x: scrollX, y: 'calc(100vh - 316px)' }}
           bordered
           expandable={expandable}
           summary={summary}

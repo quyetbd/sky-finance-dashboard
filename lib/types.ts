@@ -114,3 +114,243 @@ export type InitializePayload = {
   periodType: PeriodType
   note: string
 }
+
+// ─── PayPal Staging ───────────────────────────────────────────────────────────
+
+export type PaypalClassify = 'Bulk' | 'Single'
+
+// One row in the PayPal staging table (maps to PaypalTransaction DB model)
+export type PaypalStagingRow = {
+  id: number
+  comcode: string
+  date: string              // ISO date string (YYYY-MM-DD)
+  journalType: string
+  docNum: string | null
+  bankAccountNum: string | null
+  period: string            // YYYYMM
+  currency: string
+  gross: number
+  fee: number
+  net: number
+  transactionId: string
+  partnerCode: string | null
+  description: string | null
+  balanceImpact: string | null
+  refTxnId: string | null
+  refNum: string | null
+  xrate: number | null
+  classify: PaypalClassify
+  datasource: string
+  glPosted: boolean
+}
+
+export type PaypalFilter = {
+  comcode: string           // comcode value or 'all'
+  period: string            // YYYYMM or ''
+  status: 'all' | 'posted' | 'unposted'
+}
+
+// ─── BettaMax Staging ─────────────────────────────────────────────────────────
+
+// One row in the BettaMax platform staging table
+export type BettamaxStagingRow = {
+  id: number
+  comcode: string
+  transdate: string         // ISO date string (YYYY-MM-DD)
+  journalType: string
+  docNum: string | null
+  period: string            // YYYYMM
+  currency: string
+  amount: number
+  xrate: number | null
+  partnerCode: string | null
+  datasource: string
+  glPosted: boolean
+}
+
+export type BettamaxFilter = {
+  comcode: string           // comcode value or 'all'
+  period: string            // YYYYMM or ''
+  status: 'all' | 'posted' | 'unposted'
+}
+
+// ─── PingPong Staging ─────────────────────────────────────────────────────────
+
+// One row in the PingPong staging table (maps to PingPongTransaction DB model)
+export type PingPongStagingRow = {
+  id: number
+  comcode: string
+  date: string              // ISO date string (YYYY-MM-DD)
+  journalType: string
+  docNum: string | null
+  bankAccountNum: string | null
+  period: string            // YYYYMM
+  currency: string
+  amount: number
+  partnerCode: string | null
+  description: string | null
+  balanceImpact: string | null
+  refTxnId: string | null
+  refNum: string | null
+  xrate: number | null
+  datasource: string        // default 'BankCAN'
+  glPosted: boolean
+}
+
+export type PingPongFilter = {
+  comcode: string           // comcode value or 'all'
+  period: string            // YYYYMM or ''
+  status: 'all' | 'posted' | 'unposted'
+}
+
+// ─── Bank Staging ─────────────────────────────────────────────────────────────
+
+// One row in the Bank staging table (maps to BankTransaction DB model)
+export type BankStagingRow = {
+  id: number
+  comcode: string
+  date: string              // ISO date string (YYYY-MM-DD)
+  journalType: string
+  docNum: string | null
+  bankAccountNum: string | null
+  period: string            // YYYYMM
+  currency: string
+  amount: number
+  partnerCode: string | null
+  description: string | null
+  balanceImpact: 'Debit' | 'Credit' | null
+  refTxnId: string | null
+  refNum: string | null
+  xrate: number | null
+  datasource: string        // e.g. 'BankCAN', 'BankVN'
+  glPosted: boolean
+}
+
+export type BankFilter = {
+  comcode: string           // comcode value or 'all'
+  period: string            // YYYYMM or ''
+  status: 'all' | 'posted' | 'unposted'
+}
+
+// ─── Exchange Rate ────────────────────────────────────────────────────────────
+
+export type ExchangeRateRow = {
+  id: number
+  period: string      // YYYYMM
+  date: string        // ISO string
+  fncCurr: string     // Functional currency, e.g. USD
+  inputCurr: string   // Transaction currency, e.g. VND | CAD
+  rateType: RateType  // Mul | Div
+  rate: string        // Decimal string, 6dp
+}
+
+export type ExchangeRatePayload = {
+  period: string
+  date: string        // YYYY-MM-DD
+  fncCurr: string
+  inputCurr: string
+  rateType: RateType
+  rate: string
+}
+
+// ─── Chart of Accounts ───────────────────────────────────────────────────────
+
+export const ACCOUNT_TYPE_OPTIONS = [
+  { value: 'A',   label: 'A',   desc: 'Asset' },
+  { value: 'L',   label: 'L',   desc: 'Liability' },
+  { value: 'E',   label: 'E',   desc: 'Equity' },
+  { value: 'R',   label: 'R',   desc: 'Revenue' },
+  { value: 'Exp', label: 'Exp', desc: 'Expense' },
+] as const
+
+export const ARAP_TYPE_OPTIONS = [
+  'Receivables from Customers',
+  'Advances from Customers',
+  'Other receivables',
+  'Payable to Suppliers',
+  'Advance to Suppliers',
+  'Other payables',
+] as const
+
+export type ArapType = typeof ARAP_TYPE_OPTIONS[number]
+
+export type ChartOfAccountRow = {
+  accountCode: number
+  accountName: string
+  accountType: string   // A | L | E | R | Exp
+  balanceSide: string   // Dr | Cr
+  status:      string   // Active | Inactive
+  arap:        string | null
+  arapType:    string | null
+  createdAt:   string   // ISO string
+  updatedAt:   string   // ISO string
+}
+
+export type ChartOfAccountPayload = {
+  accountCode: number
+  accountName: string
+  accountType: string
+  balanceSide: string
+  status:      string
+  arap?:       string | null
+  arapType?:   string | null
+}
+
+// ─── Company ──────────────────────────────────────────────────────────────────
+
+export type CompanyRow = {
+  id: string          // Comcode — primary key, e.g. "ZeniroxPay"
+  name: string
+  taxId: string | null
+  currency: string    // FncCurr, e.g. "USD"
+  status: string      // "Active" | "Inactive"
+  country: string
+}
+
+export type CompanyPayload = {
+  id: string
+  name: string
+  taxId?: string | null
+  currency: string
+  status: string
+  country: string
+}
+
+// ─── Journal Type Rule ────────────────────────────────────────────────────────
+
+export type JournalTypeRuleRow = {
+  id: number
+  dataSource: string
+  journalType: string
+  bankAccountNum: string | null
+  contraAccount: number
+  transAccount: number
+  feeAccount: number | null
+  partner: string | null
+  classify: string | null
+  addDate: string | null      // ISO string (createdAt)
+  modifiedDate: string | null // ISO string (updatedAt)
+}
+
+export type JournalTypeRulePayload = {
+  dataSource: string
+  journalType: string
+  bankAccountNum?: string | null
+  contraAccount: number
+  transAccount: number
+  feeAccount?: number | null
+  partner?: string | null
+  classify?: string | null
+}
+
+export const JOURNAL_TYPE_DATASOURCES = [
+  'Platform',
+  'PayPal',
+  'PayPalCase',
+  'BankVN',
+  'BankCAN',
+  'PingPong',
+  'Stripe',
+] as const
+
+export const JOURNAL_TYPE_CLASSIFY_OPTIONS = ['Bulk', 'Single', 'Individual'] as const
