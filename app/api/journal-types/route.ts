@@ -1,11 +1,25 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import type { ApiResponse } from '@/lib/types'
 
-// TODO: Implement endpoint
+// GET /api/journal-types?q=&dataSource=
+// Trả về danh sách JournalTypeRule, hỗ trợ tìm kiếm theo tên + filter theo dataSource
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const q = searchParams.get('q')?.trim() ?? ''
+  const dataSource = searchParams.get('dataSource') ?? ''
 
-export async function GET() {
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
-}
+  const rules = await prisma.journalTypeRule.findMany({
+    where: {
+      ...(q ? { journalType: { contains: q, mode: 'insensitive' } } : {}),
+      ...(dataSource ? { dataSource } : {}),
+    },
+    orderBy: { journalType: 'asc' },
+    take: 50,
+  })
 
-export async function POST() {
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
+  return NextResponse.json({
+    data: rules,
+    meta: { total: rules.length },
+  } as ApiResponse<typeof rules>)
 }

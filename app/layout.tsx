@@ -1,12 +1,9 @@
-import type { Metadata } from 'next';
-import './globals.css';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { ConfigProvider } from 'antd';
-import viVN from 'antd/locale/vi_VN';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth/index';
-import { Providers } from '@/app/components/Providers';
-import { themeConfig } from '@/lib/utils/colors';
+import type { Metadata } from 'next'
+import './globals.css'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { Providers } from '@/app/components/Providers'
 import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -24,20 +21,12 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <html lang="vi">
+    <html lang="en">
       <body className={inter.className}>
         <AntdRegistry>
-          <ConfigProvider
-            locale={viVN}
-            theme={{
-              token: {
-                ...themeConfig.token,
-                fontFamily: 'inherit',
-              },
-            }}
-          >
-            <Providers session={session}>{children}</Providers>
-          </ConfigProvider>
+          <Providers session={session}>
+            {children}
+          </Providers>
         </AntdRegistry>
       </body>
     </html>

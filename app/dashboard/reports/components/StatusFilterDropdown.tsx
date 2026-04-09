@@ -1,22 +1,20 @@
+'use client';
+
 import CheckboxDropdown from '@/app/components/CheckboxDropdown';
-import React from 'react';
+import React, { useState } from 'react';
 import { STATUS_OPTIONS } from '../profit/data';
+import { useT } from '@/lib/i18n/LocaleContext';
 
 const StatusFilterDropdown = () => {
-  const [status, setStatus] = React.useState<string[]>([]);
-
-  const handleChangeStatus = (value: string[] | undefined) => {
-    setStatus(value ? value : []);
-  };
+  const t = useT();
+  const [status, setStatus] = useState<string[]>([]);
 
   return (
     <CheckboxDropdown
-      label="Status"
+      label={t('table.status')}
       options={STATUS_OPTIONS}
       selected={status}
-      onChange={(value) => {
-        handleChangeStatus(value.length ? value : undefined);
-      }}
+      onChange={(value) => setStatus(value.length ? value : [])}
     />
   );
 };

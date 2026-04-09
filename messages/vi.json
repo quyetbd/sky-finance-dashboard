@@ -1,0 +1,373 @@
+{
+  "common": {
+    "export": "Xuất file",
+    "total": "TỔNG CỘNG",
+    "clearSelection": "Bỏ chọn",
+    "selectOptions": "Chọn",
+    "comingSoon": "Đang phát triển...",
+    "financialStatementPlaceholder": "Báo cáo tài chính (đang phát triển)",
+    "configPlaceholder": "Trang cấu hình (đang phát triển)",
+    "dataEntryPlaceholder": "Form nhập liệu (đang phát triển)",
+    "reportPlaceholder": "Nội dung báo cáo (đang phát triển)"
+  },
+  "nav": {
+    "reports": "Báo cáo quản trị",
+    "profitReport": "Báo cáo Profit",
+    "finalReport": "Báo cáo Quyết toán",
+    "disputeManagement": "Quản lý Tranh chấp",
+    "byMarketReport": "Báo cáo theo Thị trường",
+    "glFinancial": "Ghi sổ & báo cáo tài chính",
+    "dataPreparation": "Chuẩn bị số liệu và ghi sổ",
+    "generalLedger": "Sổ cái",
+    "glEntry": "GL Entry",
+    "actualCosts": "Supplier Cost & Seller Cost thực tế",
+    "financialStatements": "Báo cáo tài chính",
+    "balanceSheet": "Bảng cân đối kế toán",
+    "incomeStatement": "Báo cáo kết quả HĐKD",
+    "financialNotes": "Thuyết minh báo cáo tài chính",
+    "arApReport": "Báo cáo Phải thu, Phải trả",
+    "settings": "Thiết lập chung",
+    "support": "Hỗ trợ",
+    "exchangeRates": "Khai báo tỷ giá",
+    "companies": "Quản lý Công ty",
+    "chartOfAccounts": "Hệ thống tài khoản",
+    "partners": "Quản lý đối tác",
+    "fiscalPeriods": "Quản lý Kỳ kế toán",
+    "configuration": "Cấu hình",
+    "reportConfig": "Cấu hình báo cáo",
+    "journalTypes": "Loại giao dịch",
+    "glViewer": "Sổ cái"
+  },
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "managementReports": "Báo cáo quản trị",
+    "profitReport": "Báo cáo Profit",
+    "finalReport": "Báo cáo Quyết toán",
+    "disputeManagement": "Quản lý Tranh chấp",
+    "byMarketReport": "Báo cáo theo Thị trường",
+    "reserveHold": "Reserve Hold",
+    "sellerCost": "Chi phí Seller",
+    "supplierCost": "Chi phí Supplier",
+    "glFinancial": "Ghi sổ & báo cáo tài chính",
+    "dataPreparation": "Chuẩn bị số liệu",
+    "financialReports": "Báo cáo tài chính",
+    "settings": "Thiết lập chung"
+  },
+  "userMenu": {
+    "user": "Người dùng",
+    "profile": "Hồ sơ cá nhân",
+    "logout": "Đăng xuất"
+  },
+  "dashboard": {
+    "welcome": "Chào mừng đến BTM Finance",
+    "profitReport": "Báo cáo Profit",
+    "disputes": "Tranh chấp",
+    "reports": "Báo cáo",
+    "periods": "Kỳ kế toán",
+    "recentActivity": "Hoạt động gần đây",
+    "noRecentActivity": "Chưa có hoạt động nào"
+  },
+  "profitReport": {
+    "title": "Báo cáo Profit",
+    "col": {
+      "date": "Ngày",
+      "seller": "Seller",
+      "order": "Đơn hàng",
+      "gmv": "GMV",
+      "shippingCost": "Phí vận chuyển",
+      "additionalCost": "CP phát sinh",
+      "dispute": "Dispute",
+      "paymentGateway": "Phí cổng TT",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "taxFee": "Thuế & phí",
+      "profit": "Lợi nhuận",
+      "profitPct": "% LN"
+    }
+  },
+  "finalReport": {
+    "title": "Báo cáo Quyết toán"
+  },
+  "disputeReport": {
+    "title": "Báo cáo Tranh chấp & Hoàn tiền",
+    "col": {
+      "caseType": "Loại Case",
+      "order": "Đơn hàng",
+      "disputeAmt": "Số tiền TC",
+      "disputeExp": "Chi phí TC",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "fulfillCost": "CP Fulfill",
+      "taxFee": "Thuế & phí",
+      "additionalCost": "CP phát sinh",
+      "totalPrice": "Tổng tiền",
+      "dispute3Pct": "Dispute (3%)",
+      "netDisputeCost": "Chi phí TC ròng"
+    },
+    "filter": {
+      "caseType": "Loại Case",
+      "caseStatus": "Trạng thái",
+      "finalOutcome": "Kết quả"
+    }
+  },
+  "byMarket": {
+    "title": "Báo cáo theo Thị trường",
+    "col": {
+      "country": "Quốc gia",
+      "order": "Đơn hàng",
+      "gmv": "GMV",
+      "shippingCost": "Phí vận chuyển",
+      "additionalCost": "CP phát sinh",
+      "dispute3Pct": "Dispute (3%)",
+      "paymentGateway": "Phí cổng TT",
+      "sellerCost": "CP Seller",
+      "supplierCost": "CP Supplier",
+      "taxFee": "Thuế & phí",
+      "profit": "Lợi nhuận",
+      "profitPct": "% LN"
+    },
+    "filter": {
+      "market": "Thị trường"
+    }
+  },
+  "reserveHold": {
+    "title": "Reserve Hold"
+  },
+  "sellerCostReport": {
+    "title": "Chi phí Seller"
+  },
+  "supplierCostReport": {
+    "title": "Chi phí Supplier"
+  },
+  "table": {
+    "paidDate": "Ngày thanh toán",
+    "fulfilledDate": "Ngày giao hàng",
+    "dateField": "Ngày",
+    "seller": "Seller",
+    "comcode": "Comcode",
+    "status": "Trạng thái"
+  },
+  "dataEntry": {
+    "overall": "Tổng quan chuẩn bị số liệu",
+    "bettamax": "Dữ liệu đơn hàng BettaMax",
+    "pingpong": "Sao kê PingPong",
+    "bank": "Giao dịch ngân hàng",
+    "paypal": "Giao dịch PayPal",
+    "glEntry": "Bút toán thủ công",
+    "actualCosts": "Chi phí thực tế (Seller & Supplier)"
+  },
+  "config": {
+    "exchangeRates": "Khai báo tỷ giá",
+    "companies": "Quản lý Công ty",
+    "chartOfAccounts": "Hệ thống tài khoản",
+    "partners": "Quản lý đối tác",
+    "fiscalPeriods": "Quản lý Kỳ kế toán",
+    "reportConfig": "Cấu hình báo cáo",
+    "journalTypes": "Loại giao dịch"
+  },
+  "fiscalPeriods": {
+    "title": "Quản lý Kỳ kế toán",
+    "filterCompany": "Công ty",
+    "filterYear": "Năm tài chính",
+    "allCompanies": "Tất cả công ty",
+    "initBtn": "Khởi tạo",
+    "cancel": "Hủy",
+    "col": {
+      "year": "Năm",
+      "quarter": "Quý",
+      "month": "Tháng",
+      "period": "Kỳ",
+      "startDate": "Ngày bắt đầu",
+      "endDate": "Ngày kết thúc",
+      "note": "Ghi chú",
+      "action": "Thao tác",
+      "company": "Công ty",
+      "status": "Trạng thái"
+    },
+    "form": {
+      "title": "Khởi tạo kỳ kế toán",
+      "year": "Năm tài chính",
+      "yearRequired": "Vui lòng nhập năm tài chính",
+      "periodType": "Kiểu phân kỳ",
+      "note": "Ghi chú",
+      "notePlaceholder": "Kỳ báo cáo {year}",
+      "submit": "Khởi tạo",
+      "typeMonth": "Tháng",
+      "typeQuarter": "Quý",
+      "hintType": "Quý hoặc Tháng — mặc định là Tháng",
+      "hintDuplicate": "Năm đã khởi tạo kỳ thì không cho phép khởi tạo lần 2"
+    },
+    "status": {
+      "open": "Mở",
+      "closed": "Đóng",
+      "pending": "Chờ"
+    },
+    "toggleHintAll": "Mở/Đóng tất cả công ty trong kỳ",
+    "toggleHint": "Mở/Đóng kỳ của công ty này",
+    "confirm": {
+      "closeTitle": "Xác nhận đóng kỳ",
+      "closeDesc": "Sau khi đóng, không thể ghi thêm dữ liệu vào kỳ này.",
+      "closeOk": "Đóng kỳ",
+      "bulkCloseTitle": "Xác nhận đóng tất cả",
+      "bulkCloseDesc": "Thao tác này sẽ đóng kỳ cho tất cả công ty. Sau khi đóng, không thể ghi thêm dữ liệu."
+    },
+    "empty": "Năm {year} chưa có kỳ nào. Nhấn «Khởi tạo» để tạo kỳ báo cáo.",
+    "legend": {
+      "closed": ": Không cho phép ghi thêm dữ liệu vào các bảng tổng hợp và bảng GL.",
+      "open": ": Cho phép thao tác bình thường."
+    },
+    "error": {
+      "yearExists": "Năm đã khởi tạo kỳ, thì không cho phép khởi tạo lần 2.",
+      "toggleFailed": "Cập nhật trạng thái thất bại.",
+      "initFailed": "Khởi tạo kỳ thất bại.",
+      "fetchFailed": "Không thể tải dữ liệu kỳ kế toán.",
+      "reopenBlocked": "Kỳ đã đóng không thể mở lại. Liên hệ Admin nếu cần."
+    },
+    "success": {
+      "initialized": "Đã khởi tạo kỳ thành công.",
+      "statusUpdated": "Đã cập nhật trạng thái."
+    }
+  },
+  "accounting": {
+    "balanceSheet": "Bảng cân đối kế toán",
+    "incomeStatement": "Báo cáo kết quả HĐKD",
+    "financialNotes": "Thuyết minh báo cáo tài chính",
+    "arAp": "Báo cáo Phải thu, Phải trả"
+  },
+  "manualGL": {
+    "title": "Bút toán thủ công (Manual GL Entry)",
+    "addNew": "Thêm mới",
+    "save": "Lưu",
+    "deleteSelected": "Xóa",
+    "post": "Ghi số",
+    "reverse": "Hủy ghi số",
+    "upload": "Upload",
+    "summarize": "Tổng hợp",
+    "view": "Xem",
+    "allCompanies": "Tất cả công ty",
+    "allStatus": "Tất cả trạng thái",
+    "selectPeriod": "Chọn kỳ",
+    "openPeriodsOnly": "Chỉ kỳ đang mở",
+    "editEntry": "Sửa bút toán",
+    "addEntry": "Thêm bút toán mới",
+    "confirmDelete": "Xác nhận xóa",
+    "confirmDeleteDesc": "Bút toán Draft này sẽ bị xóa vĩnh viễn. Xác nhận tiếp tục?",
+    "confirmPost": "Xác nhận ghi số",
+    "confirmPostDesc": "Sẽ kiểm tra Dr=Cr và chuyển trạng thái sang Posted. Không thể sửa sau khi ghi số.",
+    "confirmReverse": "Xác nhận hủy ghi số",
+    "confirmReverseDesc": "Sẽ tạo bút toán đối ứng ngược lại cho các DocNum đã chọn.",
+    "postSuccess": "Ghi số thành công {count} bút toán",
+    "reverseSuccess": "Tạo bút toán hủy thành công",
+    "deleteSuccess": "Đã xóa bút toán",
+    "saveSuccess": "Đã lưu bút toán",
+    "status": {
+      "draft": "Chưa ghi số",
+      "posted": "Đã ghi số"
+    },
+    "col": {
+      "comcode": "Comcode",
+      "date": "Ngày",
+      "journalType": "Loại bút toán",
+      "docNum": "DocNum",
+      "period": "Kỳ",
+      "transAccount": "TK Nợ",
+      "contraAccount": "TK Có",
+      "currency": "Tiền tệ",
+      "amount": "Số tiền",
+      "partnerCode": "Đối tác",
+      "description": "Diễn giải",
+      "balanceImpact": "Balance Impact",
+      "referenceTxnId": "Reference",
+      "refNum": "RefNum",
+      "xRate": "Tỷ giá",
+      "dataSource": "Nguồn",
+      "status": "Trạng thái",
+      "action": "Thao tác"
+    },
+    "form": {
+      "comcode": "Công ty",
+      "comcodeRequired": "Vui lòng chọn công ty",
+      "date": "Ngày giao dịch",
+      "dateRequired": "Vui lòng chọn ngày",
+      "period": "Kỳ kế toán",
+      "periodRequired": "Vui lòng chọn kỳ",
+      "journalType": "Loại bút toán",
+      "journalTypeRequired": "Vui lòng nhập loại bút toán",
+      "transAccount": "Tài khoản Nợ (TransAccount)",
+      "transAccountRequired": "Vui lòng chọn tài khoản Nợ",
+      "contraAccount": "Tài khoản Có (ContraAccount)",
+      "contraAccountRequired": "Vui lòng chọn tài khoản Có",
+      "amount": "Số tiền",
+      "amountRequired": "Vui lòng nhập số tiền",
+      "amountPositive": "Số tiền phải lớn hơn 0",
+      "currency": "Tiền tệ",
+      "partnerCode": "Mã đối tác",
+      "description": "Diễn giải",
+      "balanceImpact": "Balance Impact",
+      "referenceTxnId": "Reference Txn",
+      "refNum": "Ref Number",
+      "xRate": "Tỷ giá",
+      "xRateNote": "(chỉ đọc)",
+      "dataSource": "Nguồn dữ liệu",
+      "autoFilled": "Tự động từ loại bút toán",
+      "currencyNote": "(tiền chức năng của công ty — chỉ đọc)",
+      "transAccountPlaceholder": "Nhập mã TK Nợ...",
+      "contraAccountPlaceholder": "Nhập mã TK Có...",
+      "partnerCodePlaceholder": "Nhập mã đối tác...",
+      "balanceImpactPlaceholder": "Credit / Debit / No Impact"
+    },
+    "error": {
+      "loadFailed": "Không thể tải danh sách bút toán",
+      "saveFailed": "Lưu bút toán thất bại",
+      "deleteFailed": "Xóa bút toán thất bại",
+      "postFailed": "Ghi số thất bại",
+      "reverseFailed": "Hủy ghi số thất bại",
+      "selectToPost": "Vui lòng chọn ít nhất một bút toán để ghi số",
+      "selectToReverse": "Vui lòng chọn ít nhất một bút toán để hủy ghi số",
+      "onlyDraftPost": "Chỉ có thể ghi số bút toán ở trạng thái Chưa ghi số",
+      "onlyPostedReverse": "Chỉ có thể hủy ghi số bút toán ở trạng thái Đã ghi số"
+    }
+  },
+  "glViewer": {
+    "title": "Sổ cái",
+    "company": "Công ty",
+    "allCompanies": "Tất cả công ty",
+    "fromDate": "Từ ngày",
+    "toDate": "Đến ngày",
+    "dataSource": "Nguồn",
+    "allSources": "Tất cả nguồn",
+    "view": "Xem",
+    "total": "Tổng bản ghi",
+    "noData": "Không có bút toán GL nào. Điều chỉnh bộ lọc và nhấn Xem.",
+    "exportSuccess": "Xuất dữ liệu thành công",
+    "col": {
+      "id": "ID",
+      "comcode": "Comcode",
+      "dataSource": "DataSource",
+      "journalType": "JournalType",
+      "docNum": "DocNum",
+      "referenceTxnId": "Reference Txn ID",
+      "bankAccountNum": "BankAccountNum",
+      "accountCode": "AccountCode",
+      "partner": "Partner",
+      "period": "Period",
+      "refNum": "RefNum",
+      "transDate": "TransDate",
+      "docDate": "DocDate",
+      "inputCurr": "InputCurr",
+      "fncCurr": "FncCurr",
+      "inputDr": "InputDr",
+      "inputCr": "InputCr",
+      "xRate": "XRate",
+      "rateType": "RateType",
+      "accountedDr": "AccountedDr",
+      "accountedCr": "AccountedCr",
+      "description": "Description",
+      "balanceImpact": "BalanceImpact",
+      "isReversal": "IsReversal",
+      "reversedId": "ReversedId",
+      "partnerTaxId": "PartnerTaxId",
+      "segment": "Segment"
+    }
+  }
+}

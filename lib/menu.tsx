@@ -5,7 +5,6 @@ import {
   ContainerOutlined,
   AlertOutlined,
   AreaChartOutlined,
-  LockOutlined,
   DollarOutlined,
   SettingOutlined,
   DashboardOutlined,
@@ -17,6 +16,7 @@ import {
   AccountBookOutlined,
   AppstoreOutlined,
   UserOutlined,
+  TableOutlined,
 } from '@ant-design/icons'
 
 export type MenuItem = Required<MenuProps>['items'][number]
@@ -28,66 +28,59 @@ function getMenuItem(
   children?: MenuItem[],
   type?: 'group'
 ): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem
+  return { key, icon, children, label, type } as MenuItem
 }
 
-export const menuItems: MenuItem[] = [
-  // I. Báo cáo quản trị (Management Reports)
-  getMenuItem('Báo cáo quản trị', 'reports-group', <BarChartOutlined />, [
-    getMenuItem('Profit Report', 'profit-report', <FileTextOutlined />),
-    getMenuItem('Final Report', 'final-report', <FileTextOutlined />),
-    getMenuItem('Dispute Management', 'dispute-management', <AlertOutlined />),
-    getMenuItem('By Market Report', 'by-market-report', <AreaChartOutlined />),
-    // getMenuItem('Reserve Hold', 'reserve-hold', <LockOutlined />),
-    // getMenuItem('Seller Cost', 'seller-cost', <DollarOutlined />),
-    // getMenuItem('Supplier Cost', 'supplier-cost', <DollarOutlined />),
-  ]),
-
-  // II. Ghi sổ & báo cáo tài chính (GL & Financial Reports)
-  getMenuItem('Ghi sổ & báo cáo tài chính', 'accounting-group', <AccountBookOutlined />, [
-    getMenuItem('Chuẩn bị số liệu và ghi sổ', 'data-preparation', null, [
-      getMenuItem('Sổ cái', 'data-prep-overall', <DashboardOutlined />),
-      getMenuItem('BettaMax', 'data-prep-bettamax', <ContainerOutlined />),
-      getMenuItem('PingPong', 'data-prep-pingpong', <ContainerOutlined />),
-      getMenuItem('Bank', 'data-prep-bank', <ContainerOutlined />),
-      getMenuItem('PayPal Case', 'data-prep-paypal', <ContainerOutlined />),
-      getMenuItem('GL Entry', 'gl-entry', <FormOutlined />),
-      getMenuItem('Supplier Cost & Seller Cost thực tế', 'actual-costs', <BookOutlined />),
+export function getMenuItems(t: (key: string) => string): MenuItem[] {
+  return [
+    // I. Management Reports
+    getMenuItem(t('nav.reports'), 'reports-group', <BarChartOutlined />, [
+      getMenuItem(t('nav.profitReport'), 'profit-report', <FileTextOutlined />),
+      getMenuItem(t('nav.finalReport'), 'final-report', <FileTextOutlined />),
+      getMenuItem(t('nav.disputeManagement'), 'dispute-management', <AlertOutlined />),
+      getMenuItem(t('nav.byMarketReport'), 'by-market-report', <AreaChartOutlined />),
     ]),
-    getMenuItem('Báo cáo tài chính', 'financial-statements', null, [
-      getMenuItem('Bảng cân đối thứ', 'balance-sheet', <BookOutlined />),
-      getMenuItem('Báo cáo tài chính', 'income-statement', <BookOutlined />),
-      getMenuItem('Thuyết minh báo cáo tài chính', 'financial-notes', <BookOutlined />),
-      getMenuItem('Báo cáo Phải thu, Phải trả', 'ar-ap-report', <BookOutlined />),
-    ]),
-  ]),
 
-  // III. Quản lý User (FC only — filtered in Sidebar)
-  getMenuItem('Quản lý User', 'user-management', <UserOutlined />),
-
-  // IV. Thiết lập chung (Settings)
-  getMenuItem('Thiết lập chung', 'settings-group', <AppstoreOutlined />, [
-    getMenuItem('Hỗ trợ', 'support', null, [
-      getMenuItem('Khai báo tỷ giá', 'exchange-rates', <DollarOutlined />),
-      getMenuItem('Quản lý Công ty', 'companies', <ContainerOutlined />),
-      getMenuItem('Hệ thống tài khoản', 'chart-of-accounts', <BookOutlined />),
-      getMenuItem('Quản lý đối tác', 'partners', <TeamOutlined />),
-      getMenuItem('Quản lý Kỳ kế toán', 'fiscal-periods', <CalendarOutlined />),
+    // II. GL & Financial Reports
+    getMenuItem(t('nav.glFinancial'), 'accounting-group', <AccountBookOutlined />, [
+      getMenuItem(t('nav.dataPreparation'), 'data-preparation', null, [
+        // getMenuItem(t('nav.generalLedger'), 'data-prep-overall', <DashboardOutlined />),
+        getMenuItem('BettaMax', 'data-prep-bettamax', <ContainerOutlined />),
+        getMenuItem('PingPong', 'data-prep-pingpong', <ContainerOutlined />),
+        getMenuItem('Bank', 'data-prep-bank', <ContainerOutlined />),
+        getMenuItem('PayPal Case', 'data-prep-paypal', <ContainerOutlined />),
+        getMenuItem(t('nav.glEntry'), 'gl-entry', <FormOutlined />),
+        getMenuItem(t('nav.actualCosts'), 'actual-costs', <BookOutlined />),
+      ]),
+      getMenuItem(t('nav.financialStatements'), 'financial-statements', null, [
+        getMenuItem(t('nav.glViewer'), 'gl-viewer', <TableOutlined />),
+        getMenuItem(t('nav.balanceSheet'), 'balance-sheet', <BookOutlined />),
+        getMenuItem(t('nav.incomeStatement'), 'income-statement', <BookOutlined />),
+        getMenuItem(t('nav.financialNotes'), 'financial-notes', <BookOutlined />),
+        getMenuItem(t('nav.arApReport'), 'ar-ap-report', <BookOutlined />),
+      ]),
     ]),
-    getMenuItem('Cấu hình', 'configuration', null, [
-      getMenuItem('Cấu hình báo cáo', 'report-config', <SettingOutlined />),
-      getMenuItem('Loại giao dịch', 'journal-types', <SettingOutlined />),
-    ]),
-  ]),
-]
 
-// Default open keys — all groups expanded on load (no mount animation)
+    // III. Quản lý User (FC only — filtered in Sidebar)
+    getMenuItem('Quản lý User', 'user-management', <UserOutlined />),
+
+    // IV. Settings
+    getMenuItem(t('nav.settings'), 'settings-group', <AppstoreOutlined />, [
+      getMenuItem(t('nav.support'), 'support', null, [
+        getMenuItem(t('nav.exchangeRates'), 'exchange-rates', <DollarOutlined />),
+        getMenuItem(t('nav.companies'), 'companies', <ContainerOutlined />),
+        getMenuItem(t('nav.chartOfAccounts'), 'chart-of-accounts', <BookOutlined />),
+        getMenuItem(t('nav.partners'), 'partners', <TeamOutlined />),
+        getMenuItem(t('nav.fiscalPeriods'), 'fiscal-periods', <CalendarOutlined />),
+      ]),
+      getMenuItem(t('nav.configuration'), 'configuration', null, [
+        getMenuItem(t('nav.reportConfig'), 'report-config', <SettingOutlined />),
+        getMenuItem(t('nav.journalTypes'), 'journal-types', <SettingOutlined />),
+      ]),
+    ]),
+  ]
+}
+
 export const defaultOpenKeys = [
   'reports-group',
   'accounting-group',
@@ -98,7 +91,6 @@ export const defaultOpenKeys = [
   'configuration',
 ]
 
-// Map key to route path
 export const menuKeyToPath: Record<string, string> = {
   'profit-report': '/dashboard/reports/profit',
   'final-report': '/dashboard/reports/final',
@@ -107,13 +99,14 @@ export const menuKeyToPath: Record<string, string> = {
   'reserve-hold': '/dashboard/reports/reserve-hold',
   'seller-cost': '/dashboard/reports/seller-cost',
   'supplier-cost': '/dashboard/reports/supplier-cost',
-  'data-prep-overall': '/dashboard/data-entry/overall',
+  // 'data-prep-overall':  '/dashboard/data-entry/overall',
   'data-prep-bettamax': '/dashboard/data-entry/bettamax',
   'data-prep-pingpong': '/dashboard/data-entry/pingpong',
   'data-prep-bank': '/dashboard/data-entry/bank',
   'data-prep-paypal': '/dashboard/data-entry/paypal',
   'gl-entry': '/dashboard/data-entry/gl-entry',
   'actual-costs': '/dashboard/data-entry/actual-costs',
+  'gl-viewer': '/dashboard/accounting/gl-viewer',
   'balance-sheet': '/dashboard/accounting/balance-sheet',
   'income-statement': '/dashboard/accounting/income-statement',
   'financial-notes': '/dashboard/accounting/financial-notes',

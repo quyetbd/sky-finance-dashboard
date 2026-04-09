@@ -1,0 +1,373 @@
+{
+  "common": {
+    "export": "Export",
+    "total": "TOTAL",
+    "clearSelection": "Clear selection",
+    "selectOptions": "Select options",
+    "comingSoon": "Coming soon...",
+    "financialStatementPlaceholder": "Financial statement (placeholder)",
+    "configPlaceholder": "Configuration page (placeholder)",
+    "dataEntryPlaceholder": "Data entry form (placeholder)",
+    "reportPlaceholder": "Report content (placeholder)"
+  },
+  "nav": {
+    "reports": "Management Reports",
+    "profitReport": "Profit Report",
+    "finalReport": "Final Report",
+    "disputeManagement": "Dispute Management",
+    "byMarketReport": "By Market Report",
+    "glFinancial": "GL & Financial Reports",
+    "dataPreparation": "Data Preparation",
+    "generalLedger": "General Ledger",
+    "glEntry": "GL Entry",
+    "actualCosts": "Actual Costs (Seller & Supplier)",
+    "financialStatements": "Financial Statements",
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "financialNotes": "Financial Notes",
+    "arApReport": "AR/AP Report",
+    "settings": "Settings",
+    "support": "Support",
+    "exchangeRates": "Exchange Rates",
+    "companies": "Companies",
+    "chartOfAccounts": "Chart of Accounts",
+    "partners": "Partners",
+    "fiscalPeriods": "Fiscal Periods",
+    "configuration": "Configuration",
+    "reportConfig": "Report Config",
+    "journalTypes": "Journal Types",
+    "glViewer": "General Ledger"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "managementReports": "Management Reports",
+    "profitReport": "Profit Report",
+    "finalReport": "Final Report",
+    "disputeManagement": "Dispute Management",
+    "byMarketReport": "By Market Report",
+    "reserveHold": "Reserve Hold",
+    "sellerCost": "Seller Cost",
+    "supplierCost": "Supplier Cost",
+    "glFinancial": "GL & Financial Reports",
+    "dataPreparation": "Data Preparation",
+    "financialReports": "Financial Reports",
+    "settings": "Settings"
+  },
+  "userMenu": {
+    "user": "User",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "welcome": "Welcome to BTM Finance Dashboard",
+    "profitReport": "Profit Report",
+    "disputes": "Disputes",
+    "reports": "Reports",
+    "periods": "Periods",
+    "recentActivity": "Recent Activity",
+    "noRecentActivity": "No recent activity"
+  },
+  "profitReport": {
+    "title": "Profit Report",
+    "col": {
+      "date": "Date",
+      "seller": "Seller",
+      "order": "Order",
+      "gmv": "GMV",
+      "shippingCost": "ShippingCost",
+      "additionalCost": "AdditionalCost",
+      "dispute": "Dispute",
+      "paymentGateway": "PaymentGateway",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "taxFee": "TaxFee",
+      "profit": "Profit",
+      "profitPct": "%Profit"
+    }
+  },
+  "finalReport": {
+    "title": "Final Report"
+  },
+  "disputeReport": {
+    "title": "Dispute And Chargeback Report",
+    "col": {
+      "caseType": "Case Type",
+      "order": "Order",
+      "disputeAmt": "DisputeAmt",
+      "disputeExp": "DisputeExp",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "fulfillCost": "FulfillCost",
+      "taxFee": "TaxFee",
+      "additionalCost": "AdditionalCost",
+      "totalPrice": "TotalPrice",
+      "dispute3Pct": "Dispute (3%)",
+      "netDisputeCost": "Net Dispute Cost"
+    },
+    "filter": {
+      "caseType": "Case Type",
+      "caseStatus": "Case Status",
+      "finalOutcome": "Final Case Outcome"
+    }
+  },
+  "byMarket": {
+    "title": "By Market Report",
+    "col": {
+      "country": "Country",
+      "order": "Order",
+      "gmv": "GMV",
+      "shippingCost": "ShippingCost",
+      "additionalCost": "AdditionalCost",
+      "dispute3Pct": "Dispute (3%)",
+      "paymentGateway": "PaymentGateway",
+      "sellerCost": "SellerCost",
+      "supplierCost": "SupplierCost",
+      "taxFee": "TaxFee",
+      "profit": "Profit",
+      "profitPct": "%Profit"
+    },
+    "filter": {
+      "market": "Market"
+    }
+  },
+  "reserveHold": {
+    "title": "Reserve Hold"
+  },
+  "sellerCostReport": {
+    "title": "Seller Cost"
+  },
+  "supplierCostReport": {
+    "title": "Supplier Cost"
+  },
+  "table": {
+    "paidDate": "PaidDate",
+    "fulfilledDate": "FulfilledDate",
+    "dateField": "Date",
+    "seller": "Seller",
+    "comcode": "Comcode",
+    "status": "Status"
+  },
+  "dataEntry": {
+    "overall": "Data Preparation Overview",
+    "bettamax": "BettaMax Order Data",
+    "pingpong": "PingPong Statement",
+    "bank": "Bank Transactions",
+    "paypal": "PayPal Transactions",
+    "glEntry": "GL Entry",
+    "actualCosts": "Actual Costs (Seller & Supplier)"
+  },
+  "config": {
+    "exchangeRates": "Exchange Rates",
+    "companies": "Companies",
+    "chartOfAccounts": "Chart of Accounts",
+    "partners": "Partners",
+    "fiscalPeriods": "Fiscal Periods",
+    "reportConfig": "Report Configuration",
+    "journalTypes": "Journal Types"
+  },
+  "fiscalPeriods": {
+    "title": "Fiscal Periods",
+    "filterCompany": "Company",
+    "filterYear": "Fiscal Year",
+    "allCompanies": "All companies",
+    "initBtn": "Initialize",
+    "cancel": "Cancel",
+    "col": {
+      "year": "Year",
+      "quarter": "Quarter",
+      "month": "Month",
+      "period": "Period",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "note": "Note",
+      "action": "Action",
+      "company": "Company",
+      "status": "Status"
+    },
+    "form": {
+      "title": "Initialize Fiscal Periods",
+      "year": "Fiscal Year",
+      "yearRequired": "Please enter the fiscal year",
+      "periodType": "Period Type",
+      "note": "Note",
+      "notePlaceholder": "Reporting period {year}",
+      "submit": "Initialize",
+      "typeMonth": "Monthly",
+      "typeQuarter": "Quarterly",
+      "hintType": "Quarter or Month — default is Monthly",
+      "hintDuplicate": "A year that has already been initialized cannot be re-initialized"
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Closed",
+      "pending": "Pending"
+    },
+    "toggleHintAll": "Open/Close all companies in this period",
+    "toggleHint": "Open/Close this company's period",
+    "confirm": {
+      "closeTitle": "Confirm close period",
+      "closeDesc": "Once closed, no data can be written to this period.",
+      "closeOk": "Close period",
+      "bulkCloseTitle": "Confirm close all",
+      "bulkCloseDesc": "This will close the period for all companies. Once closed, no data can be written."
+    },
+    "empty": "Year {year} has no periods yet. Click «Initialize» to create reporting periods.",
+    "legend": {
+      "closed": ": No data can be written to summary tables or GL.",
+      "open": ": Normal operations allowed."
+    },
+    "error": {
+      "yearExists": "This year has already been initialized and cannot be re-initialized.",
+      "toggleFailed": "Failed to update status.",
+      "initFailed": "Failed to initialize periods.",
+      "fetchFailed": "Failed to load fiscal period data.",
+      "reopenBlocked": "A closed period cannot be re-opened. Contact Admin if needed."
+    },
+    "success": {
+      "initialized": "Periods initialized successfully.",
+      "statusUpdated": "Status updated successfully."
+    }
+  },
+  "accounting": {
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "financialNotes": "Financial Notes",
+    "arAp": "AR/AP Report"
+  },
+  "manualGL": {
+    "title": "Manual GL Entry",
+    "addNew": "Add New",
+    "save": "Save",
+    "deleteSelected": "Delete",
+    "post": "Post",
+    "reverse": "Reverse",
+    "upload": "Upload",
+    "summarize": "Summarize",
+    "view": "View",
+    "allCompanies": "All Companies",
+    "allStatus": "All Statuses",
+    "selectPeriod": "Select Period",
+    "openPeriodsOnly": "Open periods only",
+    "editEntry": "Edit Entry",
+    "addEntry": "Add New Entry",
+    "confirmDelete": "Confirm Delete",
+    "confirmDeleteDesc": "This Draft entry will be permanently deleted. Confirm to continue?",
+    "confirmPost": "Confirm Post",
+    "confirmPostDesc": "This will validate Dr=Cr and mark entries as Posted. They cannot be edited after posting.",
+    "confirmReverse": "Confirm Reverse",
+    "confirmReverseDesc": "This will create counter-entries for the selected DocNums.",
+    "postSuccess": "Successfully posted {count} entries",
+    "reverseSuccess": "Reversal entries created successfully",
+    "deleteSuccess": "Entry deleted",
+    "saveSuccess": "Entry saved",
+    "status": {
+      "draft": "Draft",
+      "posted": "Posted"
+    },
+    "col": {
+      "comcode": "Comcode",
+      "date": "Date",
+      "journalType": "Journal Type",
+      "docNum": "DocNum",
+      "period": "Period",
+      "transAccount": "Trans Acct (Dr)",
+      "contraAccount": "Contra Acct (Cr)",
+      "currency": "Currency",
+      "amount": "Amount",
+      "partnerCode": "Partner",
+      "description": "Description",
+      "balanceImpact": "Balance Impact",
+      "referenceTxnId": "Reference",
+      "refNum": "RefNum",
+      "xRate": "XRate",
+      "dataSource": "Source",
+      "status": "Status",
+      "action": "Action"
+    },
+    "form": {
+      "comcode": "Company",
+      "comcodeRequired": "Please select a company",
+      "date": "Transaction Date",
+      "dateRequired": "Please select a date",
+      "period": "Fiscal Period",
+      "periodRequired": "Please select a period",
+      "journalType": "Journal Type",
+      "journalTypeRequired": "Please enter journal type",
+      "transAccount": "Debit Account (TransAccount)",
+      "transAccountRequired": "Please select a debit account",
+      "contraAccount": "Credit Account (ContraAccount)",
+      "contraAccountRequired": "Please select a credit account",
+      "amount": "Amount",
+      "amountRequired": "Please enter amount",
+      "amountPositive": "Amount must be greater than 0",
+      "currency": "Currency",
+      "partnerCode": "Partner Code",
+      "description": "Description",
+      "balanceImpact": "Balance Impact",
+      "referenceTxnId": "Reference Txn",
+      "refNum": "Ref Number",
+      "xRate": "Exchange Rate",
+      "xRateNote": "(read-only)",
+      "dataSource": "Data Source",
+      "autoFilled": "Auto-filled from journal type",
+      "currencyNote": "(functional currency — read-only)",
+      "transAccountPlaceholder": "Enter Debit account code...",
+      "contraAccountPlaceholder": "Enter Credit account code...",
+      "partnerCodePlaceholder": "Enter partner code...",
+      "balanceImpactPlaceholder": "Credit / Debit / No Impact"
+    },
+    "error": {
+      "loadFailed": "Failed to load GL entries",
+      "saveFailed": "Failed to save entry",
+      "deleteFailed": "Failed to delete entry",
+      "postFailed": "Posting failed",
+      "reverseFailed": "Reversal failed",
+      "selectToPost": "Please select at least one entry to post",
+      "selectToReverse": "Please select at least one entry to reverse",
+      "onlyDraftPost": "Only Draft entries can be posted",
+      "onlyPostedReverse": "Only Posted entries can be reversed"
+    }
+  },
+  "glViewer": {
+    "title": "General Ledger",
+    "company": "Company",
+    "allCompanies": "All Companies",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "dataSource": "Source",
+    "allSources": "All Sources",
+    "view": "View",
+    "total": "Total records",
+    "noData": "No GL entries found. Adjust filters and click View.",
+    "exportSuccess": "Data exported successfully",
+    "col": {
+      "id": "ID",
+      "comcode": "Comcode",
+      "dataSource": "DataSource",
+      "journalType": "JournalType",
+      "docNum": "DocNum",
+      "referenceTxnId": "Reference Txn ID",
+      "bankAccountNum": "BankAccountNum",
+      "accountCode": "AccountCode",
+      "partner": "Partner",
+      "period": "Period",
+      "refNum": "RefNum",
+      "transDate": "TransDate",
+      "docDate": "DocDate",
+      "inputCurr": "InputCurr",
+      "fncCurr": "FncCurr",
+      "inputDr": "InputDr",
+      "inputCr": "InputCr",
+      "xRate": "XRate",
+      "rateType": "RateType",
+      "accountedDr": "AccountedDr",
+      "accountedCr": "AccountedCr",
+      "description": "Description",
+      "balanceImpact": "BalanceImpact",
+      "isReversal": "IsReversal",
+      "reversedId": "ReversedId",
+      "partnerTaxId": "PartnerTaxId",
+      "segment": "Segment"
+    }
+  }
+}

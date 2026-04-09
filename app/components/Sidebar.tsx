@@ -10,12 +10,13 @@ import {
 } from '@ant-design/icons';
 import { useRouter, usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { menuItems, menuKeyToPath } from '@/lib/menu';
+// import { menuItems, menuKeyToPath } from '@/lib/menu';
 import { useAuth } from '@/lib/auth/useAuth';
+import { getMenuItems, menuItems, menuKeyToPath } from '@/lib/menu';
+import { useT } from '@/lib/i18n/LocaleContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 const { Sider, Header } = Layout;
-
-// ─── Sidebar ─────────────────────────────────────────────────────────────────
 
 interface SidebarProps {
   collapsed: boolean;
@@ -35,6 +36,7 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         const key = (item as { key?: string }).key;
         return key !== 'user-management';
       });
+  // const t = useT();
 
   const getCurrentKey = () => {
     for (const [key, path] of Object.entries(menuKeyToPath)) {
@@ -95,29 +97,31 @@ export function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 export function TopHeader() {
   const pathname = usePathname();
   const { user } = useAuth();
+  const t = useT();
 
   const getBreadcrumb = () => {
-    const parts: { title: string }[] = [{ title: 'Trang chủ' }];
+    const parts: { title: string }[] = [{ title: t('breadcrumb.home') }];
     if (pathname.includes('/reports/profit'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Profit Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.profitReport') });
     else if (pathname.includes('/reports/final'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Final Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.finalReport') });
     else if (pathname.includes('/reports/dispute'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Dispute Management' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.disputeManagement') });
     else if (pathname.includes('/reports/by-market'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'By Market Report' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.byMarketReport') });
     else if (pathname.includes('/reports/reserve'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Reserve Hold' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.reserveHold') });
     else if (pathname.includes('/reports/seller'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Seller Cost' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.sellerCost') });
     else if (pathname.includes('/reports/supplier'))
-      parts.push({ title: 'Báo cáo quản trị' }, { title: 'Supplier Cost' });
+      parts.push({ title: t('breadcrumb.managementReports') }, { title: t('breadcrumb.supplierCost') });
     else if (pathname.includes('/data-entry'))
-      parts.push({ title: 'Ghi sổ & báo cáo tài chính' }, { title: 'Chuẩn bị số liệu' });
+      parts.push({ title: t('breadcrumb.glFinancial') }, { title: t('breadcrumb.dataPreparation') });
     else if (pathname.includes('/accounting'))
-      parts.push({ title: 'Ghi sổ & báo cáo tài chính' }, { title: 'Báo cáo tài chính' });
+      parts.push({ title: t('breadcrumb.glFinancial') }, { title: t('breadcrumb.financialReports') });
     else if (pathname.includes('/users')) parts.push({ title: 'Quản lý User' });
-    else if (pathname.includes('/config')) parts.push({ title: 'Thiết lập chung' });
+    else if (pathname.includes('/config'))
+      parts.push({ title: t('breadcrumb.settings') });
     return parts;
   };
 
@@ -128,13 +132,14 @@ export function TopHeader() {
   };
 
   const userMenu: MenuProps['items'] = [
-    {
+    // { key: 'profile', label: t('userMenu.profile'), icon: <UserOutlined /> },
+        {
       key: 'info',
       label: <span style={{ fontSize: 12, color: '#6b7280' }}>{user?.role ?? ''}</span>,
       disabled: true,
     },
     { type: 'divider' },
-    { key: 'logout', label: 'Đăng xuất', icon: <LogoutOutlined />, danger: true },
+    { key: 'logout', label: t('userMenu.logout'), icon: <LogoutOutlined />, danger: true },
   ];
 
   return (
@@ -157,12 +162,9 @@ export function TopHeader() {
       </Space>
 
       <Space size={8}>
-        <span style={{ fontSize: 13, color: '#595959' }}>{user?.email ?? ''}</span>
-        <Dropdown
-          menu={{ items: userMenu, onClick: handleMenuClick }}
-          placement="bottomRight"
-          trigger={['click']}
-        >
+        <LanguageSwitcher />
+        <span style={{ fontSize: 13, color: '#595959' }}>{t('userMenu.user')}</span>
+        <Dropdown menu={{ items: userMenu, onClick: handleMenuClick }} placement="bottomRight" trigger={['click']}>
           <Avatar
             size={32}
             style={{ backgroundColor: '#1d4ed8', cursor: 'pointer' }}

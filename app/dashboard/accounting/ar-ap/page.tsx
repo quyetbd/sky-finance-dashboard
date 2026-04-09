@@ -1,16 +1,14 @@
-import { Card } from 'antd'
+'use client';
 
-export default function AccountingPage() {
-  const titleMap: Record<string, string> = {
-    'balance-sheet': 'Bảng cân đối thứ (Balance Sheet)',
-    'income-statement': 'Báo cáo tài chính (Income Statement)',
-    'financial-notes': 'Thuyết minh báo cáo tài chính (Notes)',
-    'ar-ap': 'Báo cáo Phải thu, Phải trả (AR/AP)'
-  }
+import { Card } from 'antd';
+import { useT } from '@/lib/i18n/LocaleContext';
+
+export default function ArApPage() {
+  const t = useT();
   return (
     <div>
-      <h1 style={{ marginBottom: '24px' }}>${titleMap['ar-ap']}</h1>
-      <Card><p>Financial statement (placeholder)</p></Card>
+      <h1 style={{ marginBottom: '24px' }}>{t('accounting.arAp')}</h1>
+      <Card><p>{t('common.financialStatementPlaceholder')}</p></Card>
     </div>
-  )
+  );
 }
